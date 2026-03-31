@@ -19,3 +19,5 @@ jobs:
           script: |
             cd /var/www/joshlayani.com
             git pull origin main
+            cp nginx/joshlayani.com /etc/nginx/sites-available/joshlayani.com
+            nginx -t && systemctl reload nginx
