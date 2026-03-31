@@ -1,4 +1,11 @@
 server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    return 444;
+}
+
+server {
     listen 80;
     listen [::]:80;
     server_name joshlayani.com www.joshlayani.com;
