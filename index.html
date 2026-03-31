@@ -5,19 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Josh Layani</title>
   <meta name="description" content="Josh Layani — building things on the internet.">
+  <meta property="og:title" content="Josh Layani">
+  <meta property="og:description" content="Building things on the internet.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joshlayani.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
 <body>
+
+  <div class="gradient-bg" aria-hidden="true">
+    <div class="g1"></div>
+    <div class="g2"></div>
+    <div class="g3"></div>
+  </div>
+
   <main>
-    <h1>Josh Layani</h1>
-    <p class="tagline">Building things on the internet.</p>
-    <nav>
-      <a href="https://github.com/joshlayani" target="_blank" rel="noopener">GitHub</a>
-    </nav>
+    <header class="hero">
+      <p class="mono fade-in">joshlayani.com</p>
+      <h1 class="fade-in" style="--delay: 0.1s">Josh Layani</h1>
+      <p class="tagline fade-in" style="--delay: 0.2s">Building things on the internet.</p>
+    </header>
+
+    <section class="links fade-in" style="--delay: 0.35s">
+      <a href="https://github.com/joshlayani" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">GitHub</span>
+          <span class="link-desc">Open source & projects</span>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 8h9m0 0L8.5 4m4 4l-4 4"/></svg>
+      </a>
+    </section>
+
+    <footer class="fade-in" style="--delay: 0.5s">
+      <p>&copy; 2026 Josh Layani</p>
+    </footer>
   </main>
+
 </body>
 </html>
