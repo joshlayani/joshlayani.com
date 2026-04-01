@@ -1,17 +1,16 @@
 (function () {
   const steps = Array.from(document.querySelectorAll(".story-step"));
   const routeCards = Array.from(document.querySelectorAll("[data-route-card]"));
+  const randomProjectLinks = Array.from(document.querySelectorAll("[data-random-project]"));
   const progressBar = document.getElementById("story-progress");
   const activeTitle = document.getElementById("active-step-title");
   const activeDescription = document.getElementById("active-step-description");
   const activeFocus = document.getElementById("active-step-focus");
   const activeRoute = document.getElementById("active-step-route");
-  const analyticsStatus = document.getElementById("analytics-status");
-  const analyticsInsights = document.getElementById("analytics-insights");
-  const routeMetricNodes = Array.from(document.querySelectorAll("[data-route-metric]"));
   const contactForm = document.getElementById("contact-form");
+  const resumeForm = document.getElementById("resume-form");
   const contactStatus = document.getElementById("contact-status");
-  const contactSummary = document.getElementById("contact-summary");
+  const resumeStatus = document.getElementById("resume-status");
 
   if (!steps.length) {
     return;
@@ -22,6 +21,20 @@
   const seenSteps = new Set();
   const intersectionRatios = new Map();
   const sessionId = getSessionId();
+  const projectDestinations = [
+    {
+      label: "Olivia",
+      href: "https://olivia.joshlayani.com"
+    },
+    {
+      label: "Tix",
+      href: "https://tix.joshlayani.com"
+    },
+    {
+      label: "WhatTheChef",
+      href: "https://whatthechef.joshlayani.com"
+    }
+  ];
   let activeStepId = null;
 
   function getSessionId() {
@@ -38,13 +51,6 @@
 
     window.sessionStorage.setItem(storageKey, generatedValue);
     return generatedValue;
-  }
-
-  function slugify(value) {
-    return String(value || "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
   }
 
   function sendEvent(eventType, details) {
@@ -94,62 +100,9 @@
     };
   }
 
-  function renderSummary(summary) {
-    const routeClicks = new Map();
-
-    summary.topRoutes.forEach(function (route) {
-      routeClicks.set(route.route_target, route.clicks);
-    });
-
-    routeMetricNodes.forEach(function (node) {
-      const clicks = routeClicks.get(node.dataset.routeMetric) || 0;
-      node.textContent = clicks + " tracked clicks";
-    });
-
-    analyticsInsights.textContent = "";
-
-    if (!summary.topRoutes.length) {
-      const emptyState = document.createElement("li");
-      emptyState.textContent = "No route clicks yet. The first visitors will establish the baseline.";
-      analyticsInsights.appendChild(emptyState);
-      return;
-    }
-
-    summary.topRoutes.slice(0, 4).forEach(function (route) {
-      const listItem = document.createElement("li");
-      listItem.textContent = route.route_target + ": " + route.clicks + " clicks";
-      analyticsInsights.appendChild(listItem);
-    });
-
-    if (typeof summary.contactSubmissions === "number") {
-      contactSummary.textContent = summary.contactSubmissions + " inquiries stored in Postgres over the selected window.";
-    }
-  }
-
-  async function loadSummary() {
-    try {
-      const response = await fetch("/api/summary?days=30", {
-        headers: {
-          Accept: "application/json"
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to load summary.");
-      }
-
-      const summary = await response.json();
-      analyticsStatus.textContent = "Last " + summary.days + " days of route clicks and inquiries, read live from Postgres.";
-      renderSummary(summary);
-    } catch (error) {
-      analyticsStatus.textContent = "Analytics summary will appear once the API and database are live in production.";
-      analyticsInsights.textContent = "";
-
-      const fallbackItem = document.createElement("li");
-      fallbackItem.textContent = "Collection is ready. Summary data will populate after deployment and first events.";
-      analyticsInsights.appendChild(fallbackItem);
-      contactSummary.textContent = "Recent inquiry volume will load from Postgres once the API is live.";
-    }
+  function pickRandomProject() {
+    const projectIndex = Math.floor(Math.random() * projectDestinations.length);
+    return projectDestinations[projectIndex];
   }
 
   function activateStep(step) {
@@ -258,6 +211,10 @@
 
   routeCards.forEach(function (card) {
     card.addEventListener("click", function () {
+      if (card.hasAttribute("data-random-project")) {
+        return;
+      }
+
       sendEvent("route_click", {
         funnel: card.dataset.routeTarget || "unknown",
         audience: activeFocus.textContent || "Overview",
@@ -270,26 +227,42 @@
     });
   });
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", async function (event) {
+  randomProjectLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      const destination = pickRandomProject();
+      link.href = destination.href;
+
+      sendEvent("route_click", {
+        funnel: "random-project",
+        audience: activeFocus.textContent || "Overview",
+        stepId: activeStepId,
+        routeTarget: "random-project",
+        metadata: {
+          href: destination.href,
+          project: destination.label
+        }
+      });
+    });
+  });
+
+  function bindFormSubmission(options) {
+    const { form, endpoint, statusNode, eventType, routeTarget, buildPayload, getSuccessMessage } = options;
+
+    if (!form || !statusNode) {
+      return;
+    }
+
+    form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
-      const submitButton = contactForm.querySelector('button[type="submit"]');
-      const formData = new FormData(contactForm);
-      const payload = {
-        sessionId,
-        name: String(formData.get("name") || "").trim(),
-        role: String(formData.get("role") || "").trim(),
-        email: String(formData.get("email") || "").trim(),
-        message: String(formData.get("message") || "").trim(),
-        sourcePath: window.location.pathname + window.location.search
-      };
-
-      contactStatus.textContent = "Saving your message and sending Josh an email alert...";
+      const submitButton = form.querySelector('button[type="submit"]');
+      const formData = new FormData(form);
+      const payload = buildPayload(formData);
+      statusNode.textContent = "Sending...";
       submitButton.disabled = true;
 
       try {
-        const response = await fetch("/api/contact", {
+        const response = await fetch(endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -301,32 +274,74 @@
         const result = await response.json();
 
         if (!response.ok) {
-          throw new Error(result.error || "Unable to send message.");
+          throw new Error(result.error || "Unable to submit form.");
         }
 
-        contactForm.reset();
-        contactStatus.textContent = result.emailDelivered
-          ? "Message sent. It was stored in Postgres and an email alert was sent."
-          : "Message stored in Postgres. Email alerts will send once SMTP is configured.";
+        form.reset();
+        statusNode.textContent = getSuccessMessage(result);
 
-        sendEvent("contact_submit", {
-          funnel: "contact",
-          audience: "Contact",
-          stepId: "contact",
-          routeTarget: "contact",
+        sendEvent(eventType, {
+          funnel: routeTarget,
+          audience: routeTarget,
+          stepId: routeTarget,
+          routeTarget,
           metadata: {
             emailDelivered: Boolean(result.emailDelivered)
           }
         });
-
-        loadSummary();
       } catch (error) {
-        contactStatus.textContent = error.message || "Something went wrong while sending your message.";
+        statusNode.textContent = error.message || "Something went wrong while sending the form.";
       } finally {
         submitButton.disabled = false;
       }
     });
   }
+
+  bindFormSubmission({
+    form: contactForm,
+    endpoint: "/api/contact",
+    statusNode: contactStatus,
+    eventType: "contact_submit",
+    routeTarget: "message",
+    buildPayload(formData) {
+      return {
+        sessionId,
+        name: String(formData.get("name") || "").trim(),
+        role: String(formData.get("role") || "").trim(),
+        email: String(formData.get("email") || "").trim(),
+        message: String(formData.get("message") || "").trim(),
+        sourcePath: window.location.pathname + window.location.search
+      };
+    },
+    getSuccessMessage(result) {
+      return result.emailDelivered
+        ? "Message sent. It reached Josh successfully."
+        : "Message saved. Email alerts will send once SMTP is configured.";
+    }
+  });
+
+  bindFormSubmission({
+    form: resumeForm,
+    endpoint: "/api/resume-request",
+    statusNode: resumeStatus,
+    eventType: "resume_request_submit",
+    routeTarget: "resume",
+    buildPayload(formData) {
+      return {
+        sessionId,
+        contactEmail: String(formData.get("contactEmail") || "").trim(),
+        jobTitle: String(formData.get("jobTitle") || "").trim(),
+        jobDescription: String(formData.get("jobDescription") || "").trim(),
+        salary: String(formData.get("salary") || "").trim(),
+        sourcePath: window.location.pathname + window.location.search
+      };
+    },
+    getSuccessMessage(result) {
+      return result.emailDelivered
+        ? "Resume request sent. Josh was notified by email."
+        : "Resume request saved. Email alerts will send once SMTP is configured.";
+    }
+  });
 
   sendEvent("page_view", {
     funnel: "overview",
@@ -339,5 +354,4 @@
 
   activateStep(steps[0]);
   trackScrollDepth();
-  loadSummary();
 })();

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Josh Layani</title>
-  <meta name="description" content="The front door to Josh Layani's work, projects, and contact flow.">
+  <meta name="description" content="A simple front door to Josh Layani's work, live projects, resume requests, and contact.">
   <meta property="og:title" content="Josh Layani">
-  <meta property="og:description" content="A scroll-driven homepage that helps visitors reach the right Josh Layani destination.">
+  <meta property="og:description" content="Explore the portfolio, open a live project, request a resume, send a message, or find Josh online.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://joshlayani.com">
   <meta name="theme-color" content="#070b16">
@@ -27,9 +27,10 @@
   <header class="topbar fade-in">
     <a class="brand" href="#overview">joshlayani.com</a>
     <nav class="topnav" aria-label="Primary">
-      <a href="#story">Story</a>
       <a href="#routes">Routes</a>
-      <a href="#contact">Contact</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Message</a>
+      <a href="#online">Online</a>
       <a href="https://github.com/joshlayani" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
@@ -38,43 +39,43 @@
     <section class="hero panel fade-in" id="overview">
       <div class="hero-copy">
         <p class="mono">Internet front door</p>
-        <h1>Start here. Then go exactly where you need to.</h1>
+        <h1>Pick the path you need.</h1>
         <p class="tagline">
-          joshlayani.com should quickly triage visitors: some want the portfolio, some want to see a live
-          project, and some want to send a note that lands in the database and in my inbox.
+          Explore my work, open a live project, request a resume, send a message, or find me online.
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#routes">Choose a route</a>
-          <a class="button button-secondary" href="#contact">Send a message</a>
+          <a class="button button-secondary" href="#resume">Request a resume</a>
         </div>
       </div>
 
       <aside class="hero-summary">
-        <p class="summary-label">Live destinations</p>
+        <p class="summary-label">Five routes</p>
         <ul class="audience-list" aria-label="Audience routes">
-          <li>portfolio.joshlayani.com</li>
-          <li>olivia.joshlayani.com</li>
-          <li>tix.joshlayani.com</li>
-          <li>whatthechef.joshlayani.com</li>
+          <li>Explore my work</li>
+          <li>Open a random project</li>
+          <li>Request a resume</li>
+          <li>Send a message</li>
+          <li>Find me online</li>
         </ul>
         <p class="summary-note">
-          As you scroll, the UI changes focus and makes the next route more obvious instead of forcing a generic homepage pitch.
+          This page is here to get you where you want to go fast.
         </p>
       </aside>
     </section>
 
     <section class="story-shell" id="story" aria-labelledby="story-heading">
       <div class="story-heading fade-in">
-        <p class="mono">Scroll narrative</p>
-        <h2 id="story-heading">The homepage shifts from context to destination as you move down the page.</h2>
+        <p class="mono">Start here</p>
+        <h2 id="story-heading">Five useful ways to use this homepage.</h2>
       </div>
 
       <div class="story-layout">
         <aside class="dispatch-console fade-in" aria-live="polite">
           <p class="console-label">Current route</p>
-          <h3 id="active-step-title">Open with the broad map.</h3>
+          <h3 id="active-step-title">Start with the front door.</h3>
           <p id="active-step-description">
-            Start with orientation, then focus each step on the specific destination a visitor is likely looking for.
+            Everything here is designed to help you choose the shortest path.
           </p>
 
           <div class="progress-track" aria-hidden="true">
@@ -83,7 +84,7 @@
 
           <dl class="console-meta">
             <div>
-              <dt>Focus</dt>
+              <dt>Type</dt>
               <dd id="active-step-focus">Overview</dd>
             </div>
             <div>
@@ -92,19 +93,12 @@
             </div>
           </dl>
 
-          <div class="console-insights">
-            <p class="console-insight-label">Live Postgres readout</p>
-            <p class="console-insight-copy" id="analytics-status">Loading route clicks and recent inquiries.</p>
-            <ul class="insight-list" id="analytics-insights">
-              <li>Waiting for analytics summary...</li>
-            </ul>
-          </div>
-
           <div class="console-routes">
             <a class="mini-route" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">Portfolio</a>
-            <a class="mini-route" data-route-card data-route-target="olivia" href="https://olivia.joshlayani.com" target="_blank" rel="noopener">Olivia</a>
-            <a class="mini-route" data-route-card data-route-target="tix" href="https://tix.joshlayani.com" target="_blank" rel="noopener">Tix</a>
-            <a class="mini-route" data-route-card data-route-target="whatthechef" href="https://whatthechef.joshlayani.com" target="_blank" rel="noopener">WhatTheChef</a>
+            <a class="mini-route" data-route-card data-route-target="random-project" data-random-project href="https://olivia.joshlayani.com" target="_blank" rel="noopener">Random project</a>
+            <a class="mini-route" data-route-card data-route-target="resume" href="#resume">Resume</a>
+            <a class="mini-route" data-route-card data-route-target="message" href="#contact">Message</a>
+            <a class="mini-route" data-route-card data-route-target="online" href="#online">Online</a>
           </div>
         </aside>
 
@@ -119,15 +113,14 @@
             data-progress="0.16"
           >
             <span class="step-index">01</span>
-            <h3>Make the homepage do triage.</h3>
+            <h3>Start with the front door.</h3>
             <p>
-              The main domain should orient the visitor in seconds, then point them to the right place instead
-              of making them decode a long generic personal site.
+              If you just landed here, this page helps you find the fastest next step.
             </p>
             <ul class="step-points">
-              <li>Lead with a simple explanation of what this domain is for.</li>
-              <li>Use motion and layout changes to focus attention without overwhelming the visitor.</li>
-              <li>Track which route people actually choose.</li>
+              <li>See the full portfolio.</li>
+              <li>Jump into a live project.</li>
+              <li>Reach out if you are hiring or want to connect.</li>
             </ul>
           </article>
 
@@ -141,103 +134,98 @@
             data-progress="0.32"
           >
             <span class="step-index">02</span>
-            <h3>Some visitors just want the cleanest overview of your work.</h3>
+            <h3>Explore my work.</h3>
             <p>
-              The portfolio route is the quickest path for anyone who wants a broad look at background, work,
-              and the story behind the projects.
+              The portfolio is the best place to see projects, white papers, and the broader body of work.
             </p>
             <ul class="step-points">
-              <li>Route broad-interest visitors directly to the portfolio.</li>
-              <li>Keep this card high-signal and low-friction.</li>
-              <li>Measure how often it wins compared with project-specific routes.</li>
+              <li>Start broad.</li>
+              <li>See the context behind the work.</li>
+              <li>Use it when you want the full picture.</li>
             </ul>
           </article>
 
           <article
             class="story-step fade-in"
-            id="step-olivia"
-            data-step="olivia"
+            id="step-random-project"
+            data-step="random-project"
             data-focus="Project"
-            data-route="olivia.joshlayani.com"
-            data-route-target="olivia"
+            data-route="One live project, picked at random"
+            data-route-target="random-project"
             data-progress="0.48"
           >
             <span class="step-index">03</span>
-            <h3>Project-specific visitors should land on the project immediately.</h3>
+            <h3>Open a random project.</h3>
             <p>
-              Olivia deserves its own route because the best experience for project traffic is a direct handoff,
-              not another layer of explanation.
+              If you want to see something live right away, I will send you straight into one of the current builds.
             </p>
             <ul class="step-points">
-              <li>Use the homepage to explain why separate project destinations exist.</li>
-              <li>Let visitors self-select the exact product they came to see.</li>
-              <li>Track project interest route by route.</li>
+              <li>No extra setup.</li>
+              <li>No extra explanation.</li>
+              <li>Just open something real.</li>
             </ul>
           </article>
 
           <article
             class="story-step fade-in"
-            id="step-tix"
-            data-step="tix"
-            data-focus="Project"
-            data-route="tix.joshlayani.com"
-            data-route-target="tix"
+            id="step-resume"
+            data-step="resume"
+            data-focus="Resume"
+            data-route="Resume request form"
+            data-route-target="resume"
             data-progress="0.64"
           >
             <span class="step-index">04</span>
-            <h3>The same logic applies to Tix.</h3>
+            <h3>Request a resume.</h3>
             <p>
-              If someone came for Tix, the right homepage move is a fast redirect through a clearly named route
-              and a little bit of context that confirms they are in the right place.
+              Recruiters can send the role details here so I can reply with the most relevant resume.
             </p>
             <ul class="step-points">
-              <li>Let the route card act like a clear signpost.</li>
-              <li>Keep the homepage focused on triage, not duplication.</li>
-              <li>Use click data to understand how much traffic comes in product-first.</li>
+              <li>Share the role.</li>
+              <li>Include the compensation range.</li>
+              <li>Make the request specific.</li>
             </ul>
           </article>
 
           <article
             class="story-step fade-in"
-            id="step-whatthechef"
-            data-step="whatthechef"
-            data-focus="Project"
-            data-route="whatthechef.joshlayani.com"
-            data-route-target="whatthechef"
+            id="step-message"
+            data-step="message"
+            data-focus="Message"
+            data-route="Direct message form"
+            data-route-target="message"
             data-progress="0.8"
           >
             <span class="step-index">05</span>
-            <h3>WhatTheChef gets the same dedicated path.</h3>
+            <h3>Send me a message.</h3>
             <p>
-              The homepage should make it obvious that some visitors are here for a specific thing, and the
-              best UX is to help them go there immediately.
+              Use the message form for intros, project notes, questions, or anything else that should land in my inbox.
             </p>
             <ul class="step-points">
-              <li>Make the routes feel intentional instead of like a random list of links.</li>
-              <li>Give each project a distinct slot in the story.</li>
-              <li>Let the homepage visually confirm the route before the click.</li>
+              <li>Short note or long note.</li>
+              <li>Work inquiry or general hello.</li>
+              <li>Simple and direct.</li>
             </ul>
           </article>
 
           <article
             class="story-step fade-in"
-            id="step-contact"
-            data-step="contact"
-            data-focus="Contact"
-            data-route="Write to Postgres and email Josh"
-            data-route-target="contact"
+            id="step-online"
+            data-step="online"
+            data-focus="Online"
+            data-route="GitHub and public links"
+            data-route-target="online"
             data-progress="1"
           >
             <span class="step-index">06</span>
-            <h3>When someone wants to reach out, the form should actually do work.</h3>
+            <h3>Find me online.</h3>
             <p>
-              A contact form on the homepage should save the submission into Postgres and immediately alert you
-              by email so no message disappears into static-site limbo.
+              If you would rather browse first, the online section points to the public places where I share work.
             </p>
             <ul class="step-points">
-              <li>Capture name, what they do, email, message, and timestamp.</li>
-              <li>Store the submission in the database before returning success.</li>
-              <li>Trigger an email notification so you can respond quickly.</li>
+              <li>Code and repos.</li>
+              <li>Public project trail.</li>
+              <li>Easy ways to keep in touch.</li>
             </ul>
           </article>
         </div>
@@ -246,47 +234,98 @@
 
     <section class="routes panel fade-in" id="routes" aria-labelledby="routes-heading">
       <div class="routes-copy">
-        <p class="mono">Choose the next page</p>
-        <h2 id="routes-heading">Pick the destination that matches why you are here.</h2>
+        <p class="mono">Choose a route</p>
+        <h2 id="routes-heading">Go straight to what you came for.</h2>
         <p class="routes-note">
-          These route cards are tracked so the homepage can learn what visitors are actually trying to reach.
+          Five paths, each built for a different reason to be here.
         </p>
       </div>
 
       <div class="route-grid">
         <a class="route-card" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">
           <span class="route-kicker">Portfolio</span>
-          <strong>Go to the main portfolio</strong>
-          <span class="route-metric" data-route-metric="portfolio">-- tracked clicks</span>
-          <span>The broad overview of work, background, and what I build.</span>
+          <strong>Explore my work</strong>
+          <span>Projects, white papers, background, and the broader story.</span>
         </a>
-        <a class="route-card" data-route-card data-route-target="olivia" href="https://olivia.joshlayani.com" target="_blank" rel="noopener">
+        <a class="route-card" data-route-card data-route-target="random-project" data-random-project href="https://olivia.joshlayani.com" target="_blank" rel="noopener">
           <span class="route-kicker">Project</span>
-          <strong>Go to Olivia</strong>
-          <span class="route-metric" data-route-metric="olivia">-- tracked clicks</span>
-          <span>Direct access to the Olivia project instead of making visitors hunt for it.</span>
+          <strong>Open a random project</strong>
+          <span>Jump straight into one live build and see something real.</span>
         </a>
-        <a class="route-card" data-route-card data-route-target="tix" href="https://tix.joshlayani.com" target="_blank" rel="noopener">
-          <span class="route-kicker">Project</span>
-          <strong>Go to Tix</strong>
-          <span class="route-metric" data-route-metric="tix">-- tracked clicks</span>
-          <span>A direct handoff for Tix visitors with no extra friction.</span>
+        <a class="route-card" data-route-card data-route-target="resume" href="#resume">
+          <span class="route-kicker">Hiring</span>
+          <strong>Request a resume</strong>
+          <span>Recruiters can send role details and get the right resume back.</span>
         </a>
-        <a class="route-card" data-route-card data-route-target="whatthechef" href="https://whatthechef.joshlayani.com" target="_blank" rel="noopener">
-          <span class="route-kicker">Project</span>
-          <strong>Go to WhatTheChef</strong>
-          <span class="route-metric" data-route-metric="whatthechef">-- tracked clicks</span>
-          <span>The route for visitors who came for this project specifically.</span>
+        <a class="route-card" data-route-card data-route-target="message" href="#contact">
+          <span class="route-kicker">Message</span>
+          <strong>Send me a message</strong>
+          <span>Reach out directly for projects, intros, or anything else.</span>
         </a>
+        <a class="route-card" data-route-card data-route-target="online" href="#online">
+          <span class="route-kicker">Links</span>
+          <strong>Find me online</strong>
+          <span>Go to the public places where I share work and code.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="contact panel fade-in" id="resume" aria-labelledby="resume-heading">
+      <div class="contact-copy">
+        <p class="mono">Resume request</p>
+        <h2 id="resume-heading">Request a resume.</h2>
+        <p class="routes-note">
+          If you are recruiting, send the role details and I will know what to send back.
+        </p>
+      </div>
+
+      <div class="contact-layout">
+        <form class="contact-form" id="resume-form">
+          <label class="field">
+            <span>Contact email</span>
+            <input id="resume-email" name="contactEmail" type="email" autocomplete="email" required>
+          </label>
+
+          <label class="field">
+            <span>Job title</span>
+            <input id="resume-job-title" name="jobTitle" type="text" autocomplete="organization-title" required>
+          </label>
+
+          <label class="field">
+            <span>Salary</span>
+            <input id="resume-salary" name="salary" type="text" inputmode="text" required>
+          </label>
+
+          <label class="field">
+            <span>Job description</span>
+            <textarea id="resume-job-description" name="jobDescription" rows="6" required></textarea>
+          </label>
+
+          <div class="contact-actions">
+            <button class="button button-primary" type="submit">Request resume</button>
+            <p class="form-status" id="resume-status">Share the role details and I will review the request.</p>
+          </div>
+        </form>
+
+        <aside class="contact-aside">
+          <p class="summary-label">What to include</p>
+          <ul class="audience-list">
+            <li>Best contact email</li>
+            <li>Exact job title</li>
+            <li>Compensation range</li>
+            <li>Real job description</li>
+          </ul>
+          <p class="summary-note">This keeps resume requests specific instead of turning into vague cold outreach.</p>
+        </aside>
       </div>
     </section>
 
     <section class="contact panel fade-in" id="contact" aria-labelledby="contact-heading">
       <div class="contact-copy">
-        <p class="mono">Contact Josh</p>
-        <h2 id="contact-heading">Send a message from here and it should actually reach me.</h2>
+        <p class="mono">Send a message</p>
+        <h2 id="contact-heading">Send me a message.</h2>
         <p class="routes-note">
-          This form writes the submission to Postgres and sends an email alert so the homepage can function as a real intake point.
+          For project ideas, intros, questions, or anything else that should reach me directly.
         </p>
       </div>
 
@@ -314,31 +353,64 @@
 
           <div class="contact-actions">
             <button class="button button-primary" type="submit">Send message</button>
-            <p class="form-status" id="contact-status">Ready to collect your details, store them, and notify Josh.</p>
+            <p class="form-status" id="contact-status">Tell me what is on your mind and I will get back to you.</p>
           </div>
         </form>
 
         <aside class="contact-aside">
-          <p class="summary-label">Captured fields</p>
+          <p class="summary-label">Best for</p>
           <ul class="audience-list">
-            <li>Name</li>
-            <li>What they do</li>
-            <li>Email</li>
-            <li>Message + timestamp</li>
+            <li>Project inquiries</li>
+            <li>Introductions</li>
+            <li>Questions</li>
+            <li>General notes</li>
           </ul>
-          <p class="summary-note" id="contact-summary">Recent inquiry volume will load from Postgres once the API is live.</p>
+          <p class="summary-note">If you want to hire me, use the resume request form above. Everything else can go here.</p>
         </aside>
       </div>
     </section>
 
+    <section class="routes panel fade-in" id="online" aria-labelledby="online-heading">
+      <div class="routes-copy">
+        <p class="mono">Find me online</p>
+        <h2 id="online-heading">Browse the public trail.</h2>
+        <p class="routes-note">
+          Follow along on the public platforms where I share code, work, and what I am up to.
+        </p>
+      </div>
+
+      <div class="route-grid">
+        <a class="route-card" data-route-card data-route-target="online" href="https://github.com/joshlayani" target="_blank" rel="noopener">
+          <span class="route-kicker">GitHub</span>
+          <strong>github.com/joshlayani</strong>
+          <span>Code, repos, experiments, and the public side of the work.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="online" href="https://linkedin.com/in/joshlayani" target="_blank" rel="noopener">
+          <span class="route-kicker">LinkedIn</span>
+          <strong>linkedin.com/in/joshlayani</strong>
+          <span>Professional background, work history, and the easiest recruiting trail.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="online" href="https://x.com/joshlayani_" target="_blank" rel="noopener">
+          <span class="route-kicker">X</span>
+          <strong>x.com/joshlayani_</strong>
+          <span>Short thoughts, links, and whatever is happening in public right now.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="online" href="https://instagram.com/josh.pdf" target="_blank" rel="noopener">
+          <span class="route-kicker">Instagram</span>
+          <strong>instagram.com/josh.pdf</strong>
+          <span>A lighter public trail, including the visual side of things.</span>
+        </a>
+      </div>
+    </section>
+
     <footer class="site-footer fade-in">
-      <p>Designed to triage visitors, route them to the right subdomain, and turn the contact form into a real workflow.</p>
+      <p>Portfolio, live work, resume requests, direct messages, and public links in one place.</p>
       <p>&copy; 2026 Josh Layani</p>
     </footer>
   </main>
 
   <noscript>
-    <div class="noscript-banner">This homepage works best with JavaScript enabled so the scroll state, analytics, and contact form can run.</div>
+    <div class="noscript-banner">This homepage works best with JavaScript enabled so the scroll state and forms can run.</div>
   </noscript>
   <script src="script.js?v=20260331" defer></script>
 </body>

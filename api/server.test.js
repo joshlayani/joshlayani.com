@@ -1,7 +1,15 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 
-const { clampDays, normalizeContactPayload, normalizeEventPayload } = require("./server");
+const {
+  clampDays,
+  formatDailyDigestEmail,
+  getDailyDigestRange,
+  getDigestTimeZone,
+  normalizeContactPayload,
+  normalizeEventPayload,
+  normalizeResumeRequestPayload
+} = require("./server");
 
 test("normalizeEventPayload requires sessionId and eventType", function () {
   const result = normalizeEventPayload({
@@ -74,4 +82,91 @@ test("normalizeContactPayload trims and validates contact submissions", function
   assert.equal(result.email, "taylor@example.com");
   assert.equal(result.message, "Looking to chat about a project.");
   assert.equal(result.sourcePath, "/");
+});
+
+test("normalizeResumeRequestPayload validates required fields", function () {
+  const result = normalizeResumeRequestPayload({
+    contactEmail: "recruiter@example.com"
+  });
+
+  assert.equal(result.error, "contactEmail, jobTitle, jobDescription, and salary are required.");
+});
+
+test("normalizeResumeRequestPayload trims and validates resume requests", function () {
+  const result = normalizeResumeRequestPayload({
+    sessionId: "  session-456  ",
+    contactEmail: "  recruiter@example.com  ",
+    jobTitle: "  Senior Product Engineer  ",
+    jobDescription: "  Build product and ship end to end.  ",
+    salary: "  $180k - $220k  ",
+    sourcePath: "  /  "
+  });
+
+  assert.equal(result.sessionId, "session-456");
+  assert.equal(result.contactEmail, "recruiter@example.com");
+  assert.equal(result.jobTitle, "Senior Product Engineer");
+  assert.equal(result.jobDescription, "Build product and ship end to end.");
+  assert.equal(result.salary, "$180k - $220k");
+  assert.equal(result.sourcePath, "/");
+});
+
+test("getDailyDigestRange targets the previous local day in the configured timezone", function () {
+  const range = getDailyDigestRange(
+    new Date("2026-04-01T05:30:00.000Z"),
+    "America/Toronto"
+  );
+
+  assert.equal(range.digestDate, "2026-03-31");
+  assert.equal(range.timeZone, "America/Toronto");
+  assert.equal(range.start.toISOString(), "2026-03-31T04:00:00.000Z");
+  assert.equal(range.end.toISOString(), "2026-04-01T04:00:00.000Z");
+});
+
+test("getDigestTimeZone reads the configured environment variable", function () {
+  const original = process.env.ANALYTICS_TIMEZONE;
+  process.env.ANALYTICS_TIMEZONE = "America/Toronto";
+
+  try {
+    assert.equal(getDigestTimeZone(), "America/Toronto");
+  } finally {
+    if (original === undefined) {
+      delete process.env.ANALYTICS_TIMEZONE;
+    } else {
+      process.env.ANALYTICS_TIMEZONE = original;
+    }
+  }
+});
+
+test("formatDailyDigestEmail renders a clean text summary", function () {
+  const text = formatDailyDigestEmail({
+    digestDate: "2026-03-31",
+    timeZone: "America/Toronto",
+    traffic: {
+      sessions: 12,
+      page_views: 18,
+      route_clicks: 7,
+      section_entries: 15,
+      scroll_events: 9
+    },
+    topRoutes: [
+      {
+        route_target: "portfolio",
+        clicks: 4
+      }
+    ],
+    topReferrers: [
+      {
+        referrer: "direct",
+        visits: 10
+      }
+    ],
+    contactSubmissions: 2,
+    resumeRequests: 1
+  });
+
+  assert.match(text, /Date: 2026-03-31 \(America\/Toronto\)/);
+  assert.match(text, /Sessions: 12/);
+  assert.match(text, /Resume requests: 1/);
+  assert.match(text, /portfolio: 4 clicks/);
+  assert.match(text, /direct: 10 page views/);
 });

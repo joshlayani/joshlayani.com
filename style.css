@@ -45,22 +45,22 @@ body[data-active-route="portfolio"] {
   --accent-soft: rgba(138, 198, 255, 0.2);
 }
 
-body[data-active-route="olivia"] {
+body[data-active-route="random-project"] {
   --accent: #7effbf;
   --accent-soft: rgba(126, 255, 191, 0.18);
 }
 
-body[data-active-route="tix"] {
+body[data-active-route="resume"] {
   --accent: #f3a7ff;
   --accent-soft: rgba(243, 167, 255, 0.18);
 }
 
-body[data-active-route="whatthechef"] {
+body[data-active-route="message"] {
   --accent: #ffd27f;
   --accent-soft: rgba(255, 210, 127, 0.2);
 }
 
-body[data-active-route="contact"] {
+body[data-active-route="online"] {
   --accent: #ffad88;
   --accent-soft: rgba(255, 173, 136, 0.2);
 }
@@ -410,38 +410,6 @@ h3 {
   margin-top: 1.25rem;
 }
 
-.console-insights {
-  margin-top: 1.25rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.console-insight-label {
-  color: var(--accent);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.console-insight-copy {
-  margin-top: 0.4rem;
-}
-
-.insight-list {
-  list-style: none;
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 0.8rem;
-}
-
-.insight-list li {
-  color: var(--fg);
-  font-size: 0.95rem;
-}
-
 .mini-route {
   display: inline-flex;
   justify-content: center;
@@ -535,16 +503,11 @@ h3 {
   text-decoration: none;
   border-radius: 1.35rem;
   padding: 1.2rem;
-  min-height: 15rem;
+  min-height: 13rem;
 }
 
 .route-card strong {
   font-size: 1.35rem;
-}
-
-.route-metric {
-  color: var(--accent);
-  font-weight: 500;
 }
 
 .contact-form,
