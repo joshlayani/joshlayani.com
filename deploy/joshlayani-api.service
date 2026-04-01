@@ -1,0 +1,17 @@
+[Unit]
+Description=joshlayani.com analytics API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/joshlayani.com
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/etc/joshlayani.com/api.env
+ExecStart=/usr/bin/env node /var/www/joshlayani.com/api/server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

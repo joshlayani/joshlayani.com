@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Josh Layani</title>
-  <meta name="description" content="Josh Layani — building things on the internet.">
+  <meta name="description" content="The front door to Josh Layani's work, projects, and contact flow.">
   <meta property="og:title" content="Josh Layani">
-  <meta property="og:description" content="Building things on the internet.">
+  <meta property="og:description" content="A scroll-driven homepage that helps visitors reach the right Josh Layani destination.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://joshlayani.com">
+  <meta name="theme-color" content="#070b16">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260331">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
-<body>
+<body data-active-route="overview">
 
   <div class="gradient-bg" aria-hidden="true">
     <div class="g1"></div>
@@ -23,30 +24,322 @@
     <div class="g3"></div>
   </div>
 
-  <main>
-    <header class="hero">
-      <p class="mono fade-in">joshlayani.com</p>
-      <h1 class="fade-in" style="--delay: 0.1s">Josh Layani</h1>
-      <p class="tagline fade-in" style="--delay: 0.2s">Building things on the internet.</p>
-    </header>
+  <header class="topbar fade-in">
+    <a class="brand" href="#overview">joshlayani.com</a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#story">Story</a>
+      <a href="#routes">Routes</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/joshlayani" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
 
-    <section class="links fade-in" style="--delay: 0.35s">
-      <a href="https://github.com/joshlayani" target="_blank" rel="noopener" class="link-card">
-        <div class="link-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+  <main class="page">
+    <section class="hero panel fade-in" id="overview">
+      <div class="hero-copy">
+        <p class="mono">Internet front door</p>
+        <h1>Start here. Then go exactly where you need to.</h1>
+        <p class="tagline">
+          joshlayani.com should quickly triage visitors: some want the portfolio, some want to see a live
+          project, and some want to send a note that lands in the database and in my inbox.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#routes">Choose a route</a>
+          <a class="button button-secondary" href="#contact">Send a message</a>
         </div>
-        <div class="link-text">
-          <span class="link-label">GitHub</span>
-          <span class="link-desc">Open source & projects</span>
-        </div>
-        <svg class="link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.5 8h9m0 0L8.5 4m4 4l-4 4"/></svg>
-      </a>
+      </div>
+
+      <aside class="hero-summary">
+        <p class="summary-label">Live destinations</p>
+        <ul class="audience-list" aria-label="Audience routes">
+          <li>portfolio.joshlayani.com</li>
+          <li>olivia.joshlayani.com</li>
+          <li>tix.joshlayani.com</li>
+          <li>whatthechef.joshlayani.com</li>
+        </ul>
+        <p class="summary-note">
+          As you scroll, the UI changes focus and makes the next route more obvious instead of forcing a generic homepage pitch.
+        </p>
+      </aside>
     </section>
 
-    <footer class="fade-in" style="--delay: 0.5s">
+    <section class="story-shell" id="story" aria-labelledby="story-heading">
+      <div class="story-heading fade-in">
+        <p class="mono">Scroll narrative</p>
+        <h2 id="story-heading">The homepage shifts from context to destination as you move down the page.</h2>
+      </div>
+
+      <div class="story-layout">
+        <aside class="dispatch-console fade-in" aria-live="polite">
+          <p class="console-label">Current route</p>
+          <h3 id="active-step-title">Open with the broad map.</h3>
+          <p id="active-step-description">
+            Start with orientation, then focus each step on the specific destination a visitor is likely looking for.
+          </p>
+
+          <div class="progress-track" aria-hidden="true">
+            <span id="story-progress"></span>
+          </div>
+
+          <dl class="console-meta">
+            <div>
+              <dt>Focus</dt>
+              <dd id="active-step-focus">Overview</dd>
+            </div>
+            <div>
+              <dt>Destination</dt>
+              <dd id="active-step-route">joshlayani.com</dd>
+            </div>
+          </dl>
+
+          <div class="console-insights">
+            <p class="console-insight-label">Live Postgres readout</p>
+            <p class="console-insight-copy" id="analytics-status">Loading route clicks and recent inquiries.</p>
+            <ul class="insight-list" id="analytics-insights">
+              <li>Waiting for analytics summary...</li>
+            </ul>
+          </div>
+
+          <div class="console-routes">
+            <a class="mini-route" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">Portfolio</a>
+            <a class="mini-route" data-route-card data-route-target="olivia" href="https://olivia.joshlayani.com" target="_blank" rel="noopener">Olivia</a>
+            <a class="mini-route" data-route-card data-route-target="tix" href="https://tix.joshlayani.com" target="_blank" rel="noopener">Tix</a>
+            <a class="mini-route" data-route-card data-route-target="whatthechef" href="https://whatthechef.joshlayani.com" target="_blank" rel="noopener">WhatTheChef</a>
+          </div>
+        </aside>
+
+        <div class="story-steps">
+          <article
+            class="story-step fade-in is-active"
+            id="step-overview"
+            data-step="overview"
+            data-focus="Overview"
+            data-route="joshlayani.com"
+            data-route-target="overview"
+            data-progress="0.16"
+          >
+            <span class="step-index">01</span>
+            <h3>Make the homepage do triage.</h3>
+            <p>
+              The main domain should orient the visitor in seconds, then point them to the right place instead
+              of making them decode a long generic personal site.
+            </p>
+            <ul class="step-points">
+              <li>Lead with a simple explanation of what this domain is for.</li>
+              <li>Use motion and layout changes to focus attention without overwhelming the visitor.</li>
+              <li>Track which route people actually choose.</li>
+            </ul>
+          </article>
+
+          <article
+            class="story-step fade-in"
+            id="step-portfolio"
+            data-step="portfolio"
+            data-focus="Portfolio"
+            data-route="portfolio.joshlayani.com"
+            data-route-target="portfolio"
+            data-progress="0.32"
+          >
+            <span class="step-index">02</span>
+            <h3>Some visitors just want the cleanest overview of your work.</h3>
+            <p>
+              The portfolio route is the quickest path for anyone who wants a broad look at background, work,
+              and the story behind the projects.
+            </p>
+            <ul class="step-points">
+              <li>Route broad-interest visitors directly to the portfolio.</li>
+              <li>Keep this card high-signal and low-friction.</li>
+              <li>Measure how often it wins compared with project-specific routes.</li>
+            </ul>
+          </article>
+
+          <article
+            class="story-step fade-in"
+            id="step-olivia"
+            data-step="olivia"
+            data-focus="Project"
+            data-route="olivia.joshlayani.com"
+            data-route-target="olivia"
+            data-progress="0.48"
+          >
+            <span class="step-index">03</span>
+            <h3>Project-specific visitors should land on the project immediately.</h3>
+            <p>
+              Olivia deserves its own route because the best experience for project traffic is a direct handoff,
+              not another layer of explanation.
+            </p>
+            <ul class="step-points">
+              <li>Use the homepage to explain why separate project destinations exist.</li>
+              <li>Let visitors self-select the exact product they came to see.</li>
+              <li>Track project interest route by route.</li>
+            </ul>
+          </article>
+
+          <article
+            class="story-step fade-in"
+            id="step-tix"
+            data-step="tix"
+            data-focus="Project"
+            data-route="tix.joshlayani.com"
+            data-route-target="tix"
+            data-progress="0.64"
+          >
+            <span class="step-index">04</span>
+            <h3>The same logic applies to Tix.</h3>
+            <p>
+              If someone came for Tix, the right homepage move is a fast redirect through a clearly named route
+              and a little bit of context that confirms they are in the right place.
+            </p>
+            <ul class="step-points">
+              <li>Let the route card act like a clear signpost.</li>
+              <li>Keep the homepage focused on triage, not duplication.</li>
+              <li>Use click data to understand how much traffic comes in product-first.</li>
+            </ul>
+          </article>
+
+          <article
+            class="story-step fade-in"
+            id="step-whatthechef"
+            data-step="whatthechef"
+            data-focus="Project"
+            data-route="whatthechef.joshlayani.com"
+            data-route-target="whatthechef"
+            data-progress="0.8"
+          >
+            <span class="step-index">05</span>
+            <h3>WhatTheChef gets the same dedicated path.</h3>
+            <p>
+              The homepage should make it obvious that some visitors are here for a specific thing, and the
+              best UX is to help them go there immediately.
+            </p>
+            <ul class="step-points">
+              <li>Make the routes feel intentional instead of like a random list of links.</li>
+              <li>Give each project a distinct slot in the story.</li>
+              <li>Let the homepage visually confirm the route before the click.</li>
+            </ul>
+          </article>
+
+          <article
+            class="story-step fade-in"
+            id="step-contact"
+            data-step="contact"
+            data-focus="Contact"
+            data-route="Write to Postgres and email Josh"
+            data-route-target="contact"
+            data-progress="1"
+          >
+            <span class="step-index">06</span>
+            <h3>When someone wants to reach out, the form should actually do work.</h3>
+            <p>
+              A contact form on the homepage should save the submission into Postgres and immediately alert you
+              by email so no message disappears into static-site limbo.
+            </p>
+            <ul class="step-points">
+              <li>Capture name, what they do, email, message, and timestamp.</li>
+              <li>Store the submission in the database before returning success.</li>
+              <li>Trigger an email notification so you can respond quickly.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="routes panel fade-in" id="routes" aria-labelledby="routes-heading">
+      <div class="routes-copy">
+        <p class="mono">Choose the next page</p>
+        <h2 id="routes-heading">Pick the destination that matches why you are here.</h2>
+        <p class="routes-note">
+          These route cards are tracked so the homepage can learn what visitors are actually trying to reach.
+        </p>
+      </div>
+
+      <div class="route-grid">
+        <a class="route-card" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">
+          <span class="route-kicker">Portfolio</span>
+          <strong>Go to the main portfolio</strong>
+          <span class="route-metric" data-route-metric="portfolio">-- tracked clicks</span>
+          <span>The broad overview of work, background, and what I build.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="olivia" href="https://olivia.joshlayani.com" target="_blank" rel="noopener">
+          <span class="route-kicker">Project</span>
+          <strong>Go to Olivia</strong>
+          <span class="route-metric" data-route-metric="olivia">-- tracked clicks</span>
+          <span>Direct access to the Olivia project instead of making visitors hunt for it.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="tix" href="https://tix.joshlayani.com" target="_blank" rel="noopener">
+          <span class="route-kicker">Project</span>
+          <strong>Go to Tix</strong>
+          <span class="route-metric" data-route-metric="tix">-- tracked clicks</span>
+          <span>A direct handoff for Tix visitors with no extra friction.</span>
+        </a>
+        <a class="route-card" data-route-card data-route-target="whatthechef" href="https://whatthechef.joshlayani.com" target="_blank" rel="noopener">
+          <span class="route-kicker">Project</span>
+          <strong>Go to WhatTheChef</strong>
+          <span class="route-metric" data-route-metric="whatthechef">-- tracked clicks</span>
+          <span>The route for visitors who came for this project specifically.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="contact panel fade-in" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-copy">
+        <p class="mono">Contact Josh</p>
+        <h2 id="contact-heading">Send a message from here and it should actually reach me.</h2>
+        <p class="routes-note">
+          This form writes the submission to Postgres and sends an email alert so the homepage can function as a real intake point.
+        </p>
+      </div>
+
+      <div class="contact-layout">
+        <form class="contact-form" id="contact-form">
+          <label class="field">
+            <span>Name</span>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required>
+          </label>
+
+          <label class="field">
+            <span>What do you do?</span>
+            <input id="contact-role" name="role" type="text" autocomplete="organization-title" required>
+          </label>
+
+          <label class="field">
+            <span>Email</span>
+            <input id="contact-email" name="email" type="email" autocomplete="email" required>
+          </label>
+
+          <label class="field">
+            <span>Message</span>
+            <textarea id="contact-message" name="message" rows="6" required></textarea>
+          </label>
+
+          <div class="contact-actions">
+            <button class="button button-primary" type="submit">Send message</button>
+            <p class="form-status" id="contact-status">Ready to collect your details, store them, and notify Josh.</p>
+          </div>
+        </form>
+
+        <aside class="contact-aside">
+          <p class="summary-label">Captured fields</p>
+          <ul class="audience-list">
+            <li>Name</li>
+            <li>What they do</li>
+            <li>Email</li>
+            <li>Message + timestamp</li>
+          </ul>
+          <p class="summary-note" id="contact-summary">Recent inquiry volume will load from Postgres once the API is live.</p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="site-footer fade-in">
+      <p>Designed to triage visitors, route them to the right subdomain, and turn the contact form into a real workflow.</p>
       <p>&copy; 2026 Josh Layani</p>
     </footer>
   </main>
 
+  <noscript>
+    <div class="noscript-banner">This homepage works best with JavaScript enabled so the scroll state, analytics, and contact form can run.</div>
+  </noscript>
+  <script src="script.js?v=20260331" defer></script>
 </body>
 </html>

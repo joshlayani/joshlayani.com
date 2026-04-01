@@ -1,0 +1,32 @@
+{
+  "name": "joshlayani.com",
+  "version": "1.0.0",
+  "description": "Scrolly dispatch homepage with analytics API for joshlayani.com",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node api/server.js",
+    "test": "node --test api/server.test.js && node --check api/server.js && node --check script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshlayani/joshlayani.com.git"
+  },
+  "keywords": [
+    "portfolio",
+    "analytics",
+    "postgres"
+  ],
+  "author": "Josh Layani",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/joshlayani/joshlayani.com/issues"
+  },
+  "homepage": "https://github.com/joshlayani/joshlayani.com#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.4",
+    "pg": "^8.20.0"
+  }
+}

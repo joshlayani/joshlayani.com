@@ -10,6 +10,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
         with:
@@ -19,5 +30,25 @@ jobs:
           script: |
             cd /var/www/joshlayani.com
             git pull origin main
+            npm ci --omit=dev
+            install -d -m 0755 /etc/joshlayani.com
+            cat <<EOF >/etc/joshlayani.com/api.env
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            DATABASE_SSL=${{ secrets.DATABASE_SSL }}
+            PORT=3001
+            CONTACT_TO_EMAIL=${{ secrets.CONTACT_TO_EMAIL }}
+            CONTACT_FROM_EMAIL=${{ secrets.CONTACT_FROM_EMAIL }}
+            SMTP_HOST=${{ secrets.SMTP_HOST }}
+            SMTP_PORT=${{ secrets.SMTP_PORT }}
+            SMTP_SECURE=${{ secrets.SMTP_SECURE }}
+            SMTP_USER=${{ secrets.SMTP_USER }}
+            SMTP_PASS=${{ secrets.SMTP_PASS }}
+            EOF
+            chown root:www-data /etc/joshlayani.com/api.env
+            chmod 640 /etc/joshlayani.com/api.env
+            cp deploy/joshlayani-api.service /etc/systemd/system/joshlayani-api.service
             cp nginx/joshlayani.com /etc/nginx/sites-available/joshlayani.com
+            systemctl daemon-reload
+            systemctl enable joshlayani-api
+            systemctl restart joshlayani-api
             nginx -t && systemctl reload nginx
