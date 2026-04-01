@@ -48,7 +48,7 @@ jobs:
             install -d -m 0755 /etc/joshlayani.com
             cat <<EOF >/etc/joshlayani.com/api.env
             DATABASE_URL=${{ secrets.DATABASE_URL }}
-            DATABASE_SSL=${{ secrets.DATABASE_SSL }}
+            DATABASE_SSL=true
             PORT=3001
             CONTACT_TO_EMAIL=${{ secrets.CONTACT_TO_EMAIL }}
             RESUME_REQUEST_TO_EMAIL=${{ secrets.RESUME_REQUEST_TO_EMAIL }}
