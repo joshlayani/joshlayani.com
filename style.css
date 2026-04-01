@@ -138,7 +138,6 @@ a {
 }
 
 .topbar,
-.scroll-hud,
 .page {
   position: relative;
   z-index: 1;
@@ -175,21 +174,7 @@ a {
   color: var(--fg);
 }
 
-.scroll-hud {
-  position: fixed;
-  top: 50%;
-  right: max(1rem, calc((100vw - var(--max-width)) / 2));
-  transform: translateY(-50%);
-  width: min(18rem, calc(100vw - 2rem));
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  background: rgba(10, 14, 28, 0.6);
-  box-shadow: var(--panel-shadow);
-}
-
 @supports ((backdrop-filter: blur(18px)) or (-webkit-backdrop-filter: blur(18px))) {
-  .scroll-hud,
   .panel,
   .route-card,
   .contact-form,
@@ -200,7 +185,6 @@ a {
   }
 }
 
-.scroll-hud-label,
 .mono,
 .summary-label,
 .route-kicker {
@@ -209,50 +193,6 @@ a {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.scroll-hud-main {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.85rem;
-  align-items: start;
-  margin-top: 0.85rem;
-}
-
-.scroll-hud-index {
-  font-size: 2rem;
-  line-height: 1;
-  letter-spacing: -0.06em;
-}
-
-.scroll-hud-name {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.scroll-hud-copy {
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  margin-top: 0.35rem;
-}
-
-.scroll-hud-track {
-  width: 100%;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-#active-route-progress {
-  display: block;
-  width: 17%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.92));
-  transition: width 0.28s ease;
 }
 
 .page {
@@ -501,17 +441,7 @@ h2 {
   }
 }
 
-@media (max-width: 1100px) {
-  .scroll-hud {
-    right: 1rem;
-  }
-}
-
 @media (max-width: 960px) {
-  .scroll-hud {
-    display: none;
-  }
-
   .section-shell,
   .contact-layout,
   .route-grid {
@@ -577,8 +507,7 @@ h2 {
   body,
   .scroll-section,
   .button,
-  .route-card,
-  #active-route-progress {
+  .route-card {
     transition: none;
   }
 }

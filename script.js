@@ -6,10 +6,6 @@
   const resumeForm = document.getElementById("resume-form");
   const contactStatus = document.getElementById("contact-status");
   const resumeStatus = document.getElementById("resume-status");
-  const activeRouteIndex = document.getElementById("active-route-index");
-  const activeRouteName = document.getElementById("active-route-name");
-  const activeRouteCopy = document.getElementById("active-route-copy");
-  const activeRouteProgress = document.getElementById("active-route-progress");
   const sessionId = getSessionId();
   const projectDestinations = [
     {
@@ -84,9 +80,7 @@
     return {
       id: section.id || section.dataset.routeTarget || "overview",
       routeTarget: section.dataset.routeTarget || "overview",
-      routeIndex: section.dataset.routeIndex || "01",
       routeName: section.dataset.routeName || "Overview",
-      routeCopy: section.dataset.routeCopy || "",
       progress: Number(section.dataset.progress || "0.17")
     };
   }
@@ -129,22 +123,6 @@
     scrollSections.forEach(function (currentSection) {
       currentSection.classList.toggle("is-active", currentSection === section);
     });
-
-    if (activeRouteIndex) {
-      activeRouteIndex.textContent = state.routeIndex;
-    }
-
-    if (activeRouteName) {
-      activeRouteName.textContent = state.routeName;
-    }
-
-    if (activeRouteCopy) {
-      activeRouteCopy.textContent = state.routeCopy;
-    }
-
-    if (activeRouteProgress) {
-      activeRouteProgress.style.width = Math.max(state.progress * 100, 17) + "%";
-    }
 
     if (!seenSections.has(state.id)) {
       seenSections.add(state.id);
