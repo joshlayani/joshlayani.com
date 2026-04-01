@@ -1,10 +1,15 @@
 (function () {
+  const scrollSections = Array.from(document.querySelectorAll(".scroll-section[data-route-target]"));
   const routeCards = Array.from(document.querySelectorAll("[data-route-card]"));
   const randomProjectLinks = Array.from(document.querySelectorAll("[data-random-project]"));
   const contactForm = document.getElementById("contact-form");
   const resumeForm = document.getElementById("resume-form");
   const contactStatus = document.getElementById("contact-status");
   const resumeStatus = document.getElementById("resume-status");
+  const activeRouteIndex = document.getElementById("active-route-index");
+  const activeRouteName = document.getElementById("active-route-name");
+  const activeRouteCopy = document.getElementById("active-route-copy");
+  const activeRouteProgress = document.getElementById("active-route-progress");
   const sessionId = getSessionId();
   const projectDestinations = [
     {
@@ -20,6 +25,9 @@
       href: "https://whatthechef.joshlayani.com"
     }
   ];
+  const seenSections = new Set();
+  const intersectionRatios = new Map();
+  let currentRouteTarget = "overview";
 
   function getSessionId() {
     const storageKey = "joshlayani-session-id";
@@ -72,6 +80,17 @@
     });
   }
 
+  function getSectionState(section) {
+    return {
+      id: section.id || section.dataset.routeTarget || "overview",
+      routeTarget: section.dataset.routeTarget || "overview",
+      routeIndex: section.dataset.routeIndex || "01",
+      routeName: section.dataset.routeName || "Overview",
+      routeCopy: section.dataset.routeCopy || "",
+      progress: Number(section.dataset.progress || "0.17")
+    };
+  }
+
   function pickRandomProject() {
     const projectIndex = Math.floor(Math.random() * projectDestinations.length);
     return projectDestinations[projectIndex];
@@ -97,6 +116,84 @@
     }
   }
 
+  function activateSection(section) {
+    if (!section) {
+      return;
+    }
+
+    const state = getSectionState(section);
+
+    currentRouteTarget = state.routeTarget;
+    document.body.dataset.activeRoute = state.routeTarget;
+
+    scrollSections.forEach(function (currentSection) {
+      currentSection.classList.toggle("is-active", currentSection === section);
+    });
+
+    if (activeRouteIndex) {
+      activeRouteIndex.textContent = state.routeIndex;
+    }
+
+    if (activeRouteName) {
+      activeRouteName.textContent = state.routeName;
+    }
+
+    if (activeRouteCopy) {
+      activeRouteCopy.textContent = state.routeCopy;
+    }
+
+    if (activeRouteProgress) {
+      activeRouteProgress.style.width = Math.max(state.progress * 100, 17) + "%";
+    }
+
+    if (!seenSections.has(state.id)) {
+      seenSections.add(state.id);
+      sendEvent("section_enter", {
+        funnel: state.routeTarget,
+        audience: state.routeName,
+        stepId: state.id,
+        routeTarget: state.routeTarget,
+        metadata: {
+          progress: state.progress
+        }
+      });
+    }
+  }
+
+  function pickActiveSection() {
+    let bestSection = scrollSections[0];
+    let bestRatio = -1;
+
+    scrollSections.forEach(function (section) {
+      const ratio = intersectionRatios.get(section) || 0;
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        bestSection = section;
+      }
+    });
+
+    activateSection(bestSection);
+  }
+
+  if (scrollSections.length) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        intersectionRatios.set(entry.target, entry.intersectionRatio);
+      });
+
+      pickActiveSection();
+    }, {
+      threshold: [0.2, 0.35, 0.5, 0.7, 0.9],
+      rootMargin: "-12% 0px -18% 0px"
+    });
+
+    scrollSections.forEach(function (section) {
+      observer.observe(section);
+    });
+
+    activateSection(scrollSections[0]);
+  }
+
   routeCards.forEach(function (card) {
     card.addEventListener("click", function () {
       if (card.hasAttribute("data-random-project")) {
@@ -105,8 +202,8 @@
 
       sendEvent("route_click", {
         funnel: card.dataset.routeTarget || "unknown",
-        audience: card.dataset.routeTarget || "unknown",
-        stepId: card.dataset.routeTarget || "unknown",
+        audience: currentRouteTarget,
+        stepId: currentRouteTarget,
         routeTarget: card.dataset.routeTarget || "unknown",
         metadata: {
           href: card.getAttribute("href")
@@ -122,8 +219,8 @@
 
       sendEvent("route_click", {
         funnel: "random-project",
-        audience: "random-project",
-        stepId: "random-project",
+        audience: currentRouteTarget,
+        stepId: currentRouteTarget,
         routeTarget: "random-project",
         metadata: {
           href: destination.href,

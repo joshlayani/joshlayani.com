@@ -8,15 +8,14 @@
 
 :root {
   --bg: #070b16;
-  --bg-elevated: rgba(9, 13, 25, 0.72);
-  --bg-solid: #0d1323;
   --fg: #eff3ff;
   --muted: #a5afc9;
-  --subtle: #5d6784;
+  --subtle: #66708f;
   --border: rgba(170, 188, 255, 0.14);
   --border-strong: rgba(170, 188, 255, 0.3);
-  --panel-shadow: 0 28px 80px rgba(0, 0, 0, 0.3);
+  --panel-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
   --accent: #89a8ff;
+  --accent-rgb: 137, 168, 255;
   --accent-soft: rgba(137, 168, 255, 0.18);
   --max-width: 1180px;
 }
@@ -31,13 +30,44 @@ html {
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(58, 89, 199, 0.24), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(42, 133, 122, 0.16), transparent 30%),
+    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.24), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(42, 133, 122, 0.14), transparent 30%),
     var(--bg);
   color: var(--fg);
   min-height: 100dvh;
   overflow-x: hidden;
   position: relative;
+  transition: background 0.45s ease;
+}
+
+body[data-active-route="portfolio"] {
+  --accent: #8ac6ff;
+  --accent-rgb: 138, 198, 255;
+  --accent-soft: rgba(138, 198, 255, 0.18);
+}
+
+body[data-active-route="random-project"] {
+  --accent: #7effbf;
+  --accent-rgb: 126, 255, 191;
+  --accent-soft: rgba(126, 255, 191, 0.18);
+}
+
+body[data-active-route="resume"] {
+  --accent: #f3a7ff;
+  --accent-rgb: 243, 167, 255;
+  --accent-soft: rgba(243, 167, 255, 0.18);
+}
+
+body[data-active-route="message"] {
+  --accent: #ffd27f;
+  --accent-rgb: 255, 210, 127;
+  --accent-soft: rgba(255, 210, 127, 0.2);
+}
+
+body[data-active-route="online"] {
+  --accent: #ffad88;
+  --accent-rgb: 255, 173, 136;
+  --accent-soft: rgba(255, 173, 136, 0.2);
 }
 
 a {
@@ -65,7 +95,7 @@ a {
 .gradient-bg .g1 {
   width: 32rem;
   height: 32rem;
-  background: radial-gradient(circle, rgba(98, 119, 255, 0.7), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.74), transparent 70%);
   top: -10%;
   left: -8%;
   animation: drift1 18s ease-in-out infinite;
@@ -74,7 +104,7 @@ a {
 .gradient-bg .g2 {
   width: 26rem;
   height: 26rem;
-  background: radial-gradient(circle, rgba(84, 240, 207, 0.52), transparent 70%);
+  background: radial-gradient(circle, rgba(84, 240, 207, 0.46), transparent 70%);
   bottom: 8%;
   right: -5%;
   animation: drift2 22s ease-in-out infinite;
@@ -83,7 +113,7 @@ a {
 .gradient-bg .g3 {
   width: 22rem;
   height: 22rem;
-  background: radial-gradient(circle, rgba(190, 111, 255, 0.46), transparent 70%);
+  background: radial-gradient(circle, rgba(190, 111, 255, 0.34), transparent 70%);
   top: 38%;
   left: 50%;
   transform: translateX(-50%);
@@ -108,6 +138,7 @@ a {
 }
 
 .topbar,
+.scroll-hud,
 .page {
   position: relative;
   z-index: 1;
@@ -144,105 +175,204 @@ a {
   color: var(--fg);
 }
 
-.page {
-  width: min(calc(100% - 2rem), var(--max-width));
-  margin: 0 auto;
-  padding: 2rem 0 3.5rem;
-}
-
-.panel,
-.route-card,
-.hero-summary,
-.noscript-banner {
-  background: rgba(10, 14, 28, 0.72);
+.scroll-hud {
+  position: fixed;
+  top: 50%;
+  right: max(1rem, calc((100vw - var(--max-width)) / 2));
+  transform: translateY(-50%);
+  width: min(18rem, calc(100vw - 2rem));
+  padding: 1rem 1.1rem;
   border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: rgba(10, 14, 28, 0.6);
   box-shadow: var(--panel-shadow);
 }
 
 @supports ((backdrop-filter: blur(18px)) or (-webkit-backdrop-filter: blur(18px))) {
+  .scroll-hud,
   .panel,
   .route-card,
-  .hero-summary,
+  .contact-form,
+  .contact-aside,
   .noscript-banner {
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
   }
 }
 
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.8fr);
-  gap: 1.5rem;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  border-radius: 1.75rem;
-}
-
-.hero-copy {
-  max-width: 42rem;
-}
-
-.mono {
-  font-size: 0.78rem;
-  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Segoe UI Mono", monospace;
-  color: var(--muted);
+.scroll-hud-label,
+.mono,
+.summary-label,
+.route-kicker {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+}
+
+.scroll-hud-main {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  margin-top: 0.85rem;
+}
+
+.scroll-hud-index {
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.scroll-hud-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.scroll-hud-copy {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+}
+
+.scroll-hud-track {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+#active-route-progress {
+  display: block;
+  width: 17%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.92));
+  transition: width 0.28s ease;
+}
+
+.page {
+  width: min(calc(100% - 2rem), var(--max-width));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.scroll-page {
+  display: grid;
+  gap: 2rem;
+}
+
+.panel,
+.route-card,
+.contact-form,
+.contact-aside,
+.noscript-banner {
+  background: rgba(10, 14, 28, 0.66);
+  border: 1px solid var(--border);
+  box-shadow: var(--panel-shadow);
+}
+
+.scroll-section {
+  min-height: 88dvh;
+  border-radius: 1.9rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: grid;
+  align-items: center;
+  scroll-margin-top: 6rem;
+  opacity: 0.54;
+  transform: scale(0.985);
+  transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+}
+
+.scroll-section.is-active {
+  opacity: 1;
+  transform: scale(1);
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.12), rgba(10, 14, 28, 0.72));
+}
+
+.scroll-section-hero {
+  min-height: 82dvh;
+}
+
+.section-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.7fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.section-shell-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.section-shell-form {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.section-copy {
+  max-width: 40rem;
+}
+
+.section-copy-hero {
+  max-width: 50rem;
 }
 
 h1,
-h2,
-h3 {
-  letter-spacing: -0.04em;
+h2 {
+  letter-spacing: -0.05em;
   line-height: 1.02;
 }
 
 h1 {
-  font-size: clamp(3rem, 8vw, 5.75rem);
-  margin-bottom: 1.2rem;
+  font-size: clamp(3.25rem, 8vw, 6rem);
 }
 
 h2 {
-  font-size: clamp(2rem, 5vw, 3.4rem);
-}
-
-h3 {
-  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-size: clamp(2rem, 5vw, 3.55rem);
 }
 
 .tagline,
-.routes-note,
+.section-text,
 .summary-note,
-.site-footer,
-.hero-actions,
+.form-status,
 .route-card span,
-.route-card strong {
-  line-height: 1.6;
-}
-
-.tagline,
-.summary-note,
-.routes-note,
 .site-footer p {
   color: var(--muted);
+  line-height: 1.65;
 }
 
-.hero-actions {
+.tagline,
+.section-text {
+  margin-top: 1.15rem;
+  max-width: 40rem;
+  font-size: 1.05rem;
+}
+
+.hero-actions,
+.section-actions,
+.contact-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.875rem;
-  margin-top: 1.75rem;
+  gap: 0.9rem;
+  margin-top: 1.7rem;
 }
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.85rem;
-  padding: 0 1rem;
+  min-height: 2.95rem;
+  padding: 0 1.1rem;
   border-radius: 999px;
-  text-decoration: none;
   border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--fg);
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
@@ -250,11 +380,6 @@ h3 {
 .route-card:hover {
   transform: translateY(-2px);
   border-color: var(--border-strong);
-}
-
-.route-card.is-selected {
-  border-color: var(--border-strong);
-  background: linear-gradient(180deg, var(--accent-soft), rgba(255, 255, 255, 0.05));
 }
 
 .button-primary {
@@ -265,92 +390,28 @@ h3 {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.hero-summary {
-  border-radius: 1.35rem;
-  padding: 1.4rem;
-  align-self: stretch;
+.section-aside,
+.contact-aside {
+  align-self: start;
+  padding: 1.15rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.3rem;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.summary-label,
-.route-kicker {
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.audience-list {
-  list-style: none;
-}
-
-.audience-list {
-  display: grid;
-  gap: 0.65rem;
-  margin: 1rem 0 1.25rem;
-}
-
-.audience-list li {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  padding: 0.65rem 0.9rem;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.routes {
-  margin-top: 3rem;
-  padding: clamp(1.5rem, 3vw, 2.4rem);
-  border-radius: 1.75rem;
-}
-
-.contact {
-  margin-top: 3rem;
-  padding: clamp(1.5rem, 3vw, 2.4rem);
-  border-radius: 1.75rem;
-}
-
-.routes-copy,
-.contact-copy {
-  max-width: 40rem;
-  margin-bottom: 1.5rem;
-}
-
+.contact-layout,
 .route-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-}
-
-.contact-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.85fr);
-  gap: 1rem;
-}
-
-.route-card {
-  display: grid;
-  gap: 0.7rem;
-  text-decoration: none;
-  border-radius: 1.35rem;
-  padding: 1.2rem;
-  min-height: 13rem;
-}
-
-.route-card strong {
-  font-size: 1.35rem;
-}
-
-.contact-form,
-.contact-aside {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1.35rem;
-  padding: 1.2rem;
+  margin-top: 1.75rem;
 }
 
 .contact-form {
   display: grid;
   gap: 1rem;
+  padding: 1.2rem;
+  border-radius: 1.3rem;
 }
 
 .field {
@@ -386,17 +447,8 @@ h3 {
   box-shadow: 0 0 0 0.2rem var(--accent-soft);
 }
 
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.85rem;
-}
-
 .contact-actions .button {
   cursor: pointer;
-  background: linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.06));
-  color: var(--fg);
 }
 
 .contact-actions .button[disabled] {
@@ -404,21 +456,25 @@ h3 {
   cursor: progress;
 }
 
-.form-status {
-  color: var(--muted);
-  font-size: 0.95rem;
+.route-card {
+  display: grid;
+  gap: 0.7rem;
+  min-height: 12rem;
+  padding: 1.2rem;
+  border-radius: 1.35rem;
+  text-decoration: none;
 }
 
-.contact-aside {
-  align-self: start;
+.route-card strong {
+  font-size: 1.3rem;
+  line-height: 1.18;
 }
 
 .site-footer {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem 0 0;
+  padding-top: 0.5rem;
   font-size: 0.92rem;
 }
 
@@ -436,7 +492,6 @@ h3 {
   opacity: 0;
   transform: translateY(14px);
   animation: fadeUp 0.72s ease forwards;
-  animation-delay: var(--delay, 0s);
 }
 
 @keyframes fadeUp {
@@ -446,11 +501,25 @@ h3 {
   }
 }
 
+@media (max-width: 1100px) {
+  .scroll-hud {
+    right: 1rem;
+  }
+}
+
 @media (max-width: 960px) {
-  .hero,
-  .route-grid,
-  .contact-layout {
+  .scroll-hud {
+    display: none;
+  }
+
+  .section-shell,
+  .contact-layout,
+  .route-grid {
     grid-template-columns: 1fr;
+  }
+
+  .scroll-section {
+    min-height: auto;
   }
 
   .site-footer {
@@ -475,13 +544,17 @@ h3 {
   }
 
   h1 {
-    font-size: clamp(2.65rem, 15vw, 4rem);
+    font-size: clamp(2.85rem, 14vw, 4.4rem);
   }
 
   h2 {
-    font-size: clamp(1.8rem, 9vw, 2.8rem);
+    font-size: clamp(1.95rem, 8vw, 3rem);
   }
 
+  .scroll-section {
+    padding: 1.25rem;
+    border-radius: 1.45rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -501,9 +574,11 @@ h3 {
     animation: none;
   }
 
+  body,
+  .scroll-section,
   .button,
   .route-card,
-  .contact-actions .button {
+  #active-route-progress {
     transition: none;
   }
 }

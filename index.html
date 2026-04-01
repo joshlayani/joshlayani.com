@@ -4,20 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Josh Layani</title>
-  <meta name="description" content="A simple front door to Josh Layani's work, live projects, resume requests, and contact.">
+  <meta name="description" content="A scroll-driven front door to Josh Layani's work, live projects, resume requests, contact, and socials.">
   <meta property="og:title" content="Josh Layani">
-  <meta property="og:description" content="Explore the portfolio, open a live project, request a resume, send a message, or find Josh online.">
+  <meta property="og:description" content="Scroll through the portfolio route, a random live project, resume requests, contact, and public links.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://joshlayani.com">
   <meta name="theme-color" content="#070b16">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260401b">
+  <link rel="stylesheet" href="style.css?v=20260401c">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
-<body>
-
+<body data-active-route="overview">
   <div class="gradient-bg" aria-hidden="true">
     <div class="g1"></div>
     <div class="g2"></div>
@@ -27,211 +26,252 @@
   <header class="topbar fade-in">
     <a class="brand" href="#overview">joshlayani.com</a>
     <nav class="topnav" aria-label="Primary">
-      <a href="#routes">Routes</a>
+      <a href="#portfolio">Work</a>
+      <a href="#random-project">Project</a>
       <a href="#resume">Resume</a>
       <a href="#contact">Message</a>
       <a href="#online">Online</a>
-      <a href="https://github.com/joshlayani" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
-  <main class="page">
-    <section class="hero panel fade-in" id="overview">
-      <div class="hero-copy">
-        <p class="mono">Internet front door</p>
-        <h1>Pick the right route and keep moving.</h1>
-        <p class="tagline">
-          Portfolio, live projects, resume requests, direct messages, and socials. Nothing extra.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#routes">Choose a route</a>
-          <a class="button button-secondary" href="#contact">Send a message</a>
+  <div class="scroll-hud fade-in" aria-live="polite">
+    <p class="scroll-hud-label">Current route</p>
+    <div class="scroll-hud-main">
+      <span class="scroll-hud-index" id="active-route-index">01</span>
+      <div>
+        <p class="scroll-hud-name" id="active-route-name">Overview</p>
+        <p class="scroll-hud-copy" id="active-route-copy">Start here and scroll to the route you want.</p>
+      </div>
+    </div>
+    <div class="scroll-hud-track" aria-hidden="true">
+      <span id="active-route-progress"></span>
+    </div>
+  </div>
+
+  <main class="page scroll-page">
+    <section
+      class="scroll-section scroll-section-hero panel fade-in is-active"
+      id="overview"
+      data-route-target="overview"
+      data-route-index="01"
+      data-route-name="Overview"
+      data-route-copy="Start here and scroll to the route you want."
+      data-progress="0.17"
+    >
+      <div class="section-shell section-shell-single">
+        <div class="section-copy section-copy-hero">
+          <p class="mono">Internet front door</p>
+          <h1>Scroll until the right route feels obvious.</h1>
+          <p class="tagline">
+            A single page that shifts route by route: work, live product, resume request, message, and socials.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#portfolio">Start scrolling</a>
+            <a class="button button-secondary" href="#contact">Send a message</a>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-summary">
-        <p class="summary-label">Quick routes</p>
-        <ul class="audience-list" aria-label="Audience routes">
-          <li>Explore my work</li>
-          <li>Open a random project</li>
-          <li>Request a resume</li>
-          <li>Send a message</li>
-          <li>Find me online</li>
-        </ul>
-        <p class="summary-note">
-          This homepage is just a fast way in.
-        </p>
-      </aside>
     </section>
 
-    <section class="routes panel fade-in" id="routes" aria-labelledby="routes-heading">
-      <div class="routes-copy">
-        <p class="mono">Choose a route</p>
-        <h2 id="routes-heading">Go straight to what you came for.</h2>
-        <p class="routes-note">
-          Five options. Pick one and go.
-        </p>
-      </div>
-
-      <div class="route-grid">
-        <a class="route-card" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">
-          <span class="route-kicker">Portfolio</span>
-          <strong>Explore my work</strong>
-          <span>Projects, white papers, background, and the broader story.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="random-project" data-random-project href="https://olivia.joshlayani.com" target="_blank" rel="noopener">
-          <span class="route-kicker">Project</span>
-          <strong>Open a random project</strong>
-          <span>Jump straight into one live build and see something real.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="resume" href="#resume">
-          <span class="route-kicker">Hiring</span>
-          <strong>Request a resume</strong>
-          <span>Recruiters can send role details and get the right resume back.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="message" href="#contact">
-          <span class="route-kicker">Message</span>
-          <strong>Send me a message</strong>
-          <span>Reach out directly for projects, intros, or anything else.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="online" href="#online">
-          <span class="route-kicker">Links</span>
-          <strong>Find me online</strong>
-          <span>Go to the public places where I share work and code.</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="contact panel fade-in" id="resume" aria-labelledby="resume-heading">
-      <div class="contact-copy">
-        <p class="mono">Resume request</p>
-        <h2 id="resume-heading">Request a resume.</h2>
-        <p class="routes-note">
-          If you are recruiting, send the role details and the best reply address.
-        </p>
-      </div>
-
-      <div class="contact-layout">
-        <form class="contact-form" id="resume-form">
-          <label class="field">
-            <span>Contact email</span>
-            <input id="resume-email" name="contactEmail" type="email" autocomplete="email" required>
-          </label>
-
-          <label class="field">
-            <span>Job title</span>
-            <input id="resume-job-title" name="jobTitle" type="text" autocomplete="organization-title" required>
-          </label>
-
-          <label class="field">
-            <span>Salary</span>
-            <input id="resume-salary" name="salary" type="text" inputmode="text" required>
-          </label>
-
-          <label class="field">
-            <span>Job description</span>
-            <textarea id="resume-job-description" name="jobDescription" rows="6" required></textarea>
-          </label>
-
-          <div class="contact-actions">
-            <button class="button button-primary" type="submit">Request resume</button>
-            <p class="form-status" id="resume-status">Share the role details and I will review the request.</p>
+    <section
+      class="scroll-section panel fade-in"
+      id="portfolio"
+      data-route-target="portfolio"
+      data-route-index="02"
+      data-route-name="Explore my work"
+      data-route-copy="The full portfolio, projects, and white papers."
+      data-progress="0.33"
+    >
+      <div class="section-shell">
+        <div class="section-copy">
+          <p class="mono">Portfolio</p>
+          <h2>Start here if you want the full picture.</h2>
+          <p class="section-text">
+            The portfolio is the broad view: projects, white papers, background, and the story behind the work.
+          </p>
+          <div class="section-actions">
+            <a class="button button-primary" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">Open portfolio</a>
           </div>
-        </form>
-
-        <aside class="contact-aside">
-          <p class="summary-label">What to include</p>
-          <ul class="audience-list">
-            <li>Best contact email</li>
-            <li>Exact job title</li>
-            <li>Compensation range</li>
-            <li>Real job description</li>
-          </ul>
-          <p class="summary-note">The more specific the role is, the more useful the reply can be.</p>
-        </aside>
-      </div>
-    </section>
-
-    <section class="contact panel fade-in" id="contact" aria-labelledby="contact-heading">
-      <div class="contact-copy">
-        <p class="mono">Send a message</p>
-        <h2 id="contact-heading">Send me a message.</h2>
-        <p class="routes-note">
-          Use this for project ideas, intros, questions, or anything else that should reach me directly.
-        </p>
-      </div>
-
-      <div class="contact-layout">
-        <form class="contact-form" id="contact-form">
-          <label class="field">
-            <span>Name</span>
-            <input id="contact-name" name="name" type="text" autocomplete="name" required>
-          </label>
-
-          <label class="field">
-            <span>What do you do?</span>
-            <input id="contact-role" name="role" type="text" autocomplete="organization-title" required>
-          </label>
-
-          <label class="field">
-            <span>Email</span>
-            <input id="contact-email" name="email" type="email" autocomplete="email" required>
-          </label>
-
-          <label class="field">
-            <span>Message</span>
-            <textarea id="contact-message" name="message" rows="6" required></textarea>
-          </label>
-
-          <div class="contact-actions">
-            <button class="button button-primary" type="submit">Send message</button>
-            <p class="form-status" id="contact-status">Tell me what is on your mind and I will get back to you.</p>
-          </div>
-        </form>
-
-        <aside class="contact-aside">
+        </div>
+        <aside class="section-aside">
           <p class="summary-label">Best for</p>
-          <ul class="audience-list">
-            <li>Project inquiries</li>
-            <li>Introductions</li>
-            <li>Questions</li>
-            <li>General notes</li>
-          </ul>
-          <p class="summary-note">If this is a hiring request, use the resume form above instead.</p>
+          <p class="summary-note">People who want context before jumping into one specific thing.</p>
         </aside>
       </div>
     </section>
 
-    <section class="routes panel fade-in" id="online" aria-labelledby="online-heading">
-      <div class="routes-copy">
-        <p class="mono">Find me online</p>
-        <h2 id="online-heading">Browse the public trail.</h2>
-        <p class="routes-note">
-          Follow along on the public platforms where I share code, work, and what I am up to.
-        </p>
+    <section
+      class="scroll-section panel fade-in"
+      id="random-project"
+      data-route-target="random-project"
+      data-route-index="03"
+      data-route-name="Random project"
+      data-route-copy="Open one live project right now."
+      data-progress="0.5"
+    >
+      <div class="section-shell">
+        <div class="section-copy">
+          <p class="mono">Random project</p>
+          <h2>Open something live with one click.</h2>
+          <p class="section-text">
+            No extra setup. No extra explanation. Just drop straight into one of the current builds.
+          </p>
+          <div class="section-actions">
+            <a class="button button-primary" data-route-card data-route-target="random-project" data-random-project href="https://olivia.joshlayani.com" target="_blank" rel="noopener">Open a random project</a>
+          </div>
+        </div>
+        <aside class="section-aside">
+          <p class="summary-label">Best for</p>
+          <p class="summary-note">People who would rather see a real product than read a summary first.</p>
+        </aside>
       </div>
+    </section>
 
-      <div class="route-grid">
-        <a class="route-card" data-route-card data-route-target="online" href="https://github.com/joshlayani" target="_blank" rel="noopener">
-          <span class="route-kicker">GitHub</span>
-          <strong>github.com/joshlayani</strong>
-          <span>Code, repos, experiments, and the public side of the work.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="online" href="https://linkedin.com/in/joshlayani" target="_blank" rel="noopener">
-          <span class="route-kicker">LinkedIn</span>
-          <strong>linkedin.com/in/joshlayani</strong>
-          <span>Professional background, work history, and the easiest recruiting trail.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="online" href="https://x.com/joshlayani_" target="_blank" rel="noopener">
-          <span class="route-kicker">X</span>
-          <strong>x.com/joshlayani_</strong>
-          <span>Short thoughts, links, and whatever is happening in public right now.</span>
-        </a>
-        <a class="route-card" data-route-card data-route-target="online" href="https://instagram.com/josh.pdf" target="_blank" rel="noopener">
-          <span class="route-kicker">Instagram</span>
-          <strong>instagram.com/josh.pdf</strong>
-          <span>A lighter public trail, including the visual side of things.</span>
-        </a>
+    <section
+      class="scroll-section panel fade-in"
+      id="resume"
+      data-route-target="resume"
+      data-route-index="04"
+      data-route-name="Request a resume"
+      data-route-copy="Send role details and get the right resume back."
+      data-progress="0.67"
+    >
+      <div class="section-shell section-shell-form">
+        <div class="section-copy">
+          <p class="mono">Resume request</p>
+          <h2>Recruiting? Ask here.</h2>
+          <p class="section-text">
+            Share the role, the compensation range, and the right contact address so I can respond with the most relevant resume.
+          </p>
+        </div>
+        <div class="contact-layout">
+          <form class="contact-form" id="resume-form">
+            <label class="field">
+              <span>Contact email</span>
+              <input id="resume-email" name="contactEmail" type="email" autocomplete="email" required>
+            </label>
+
+            <label class="field">
+              <span>Job title</span>
+              <input id="resume-job-title" name="jobTitle" type="text" autocomplete="organization-title" required>
+            </label>
+
+            <label class="field">
+              <span>Salary</span>
+              <input id="resume-salary" name="salary" type="text" inputmode="text" required>
+            </label>
+
+            <label class="field">
+              <span>Job description</span>
+              <textarea id="resume-job-description" name="jobDescription" rows="6" required></textarea>
+            </label>
+
+            <div class="contact-actions">
+              <button class="button button-primary" type="submit">Request resume</button>
+              <p class="form-status" id="resume-status">Share the role details and I will review the request.</p>
+            </div>
+          </form>
+
+          <aside class="contact-aside">
+            <p class="summary-label">What to include</p>
+            <p class="summary-note">The more specific the role is, the more useful the reply can be.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="scroll-section panel fade-in"
+      id="contact"
+      data-route-target="message"
+      data-route-index="05"
+      data-route-name="Send a message"
+      data-route-copy="Reach out directly for projects, intros, or questions."
+      data-progress="0.83"
+    >
+      <div class="section-shell section-shell-form">
+        <div class="section-copy">
+          <p class="mono">Send a message</p>
+          <h2>Use this for everything that is not a resume request.</h2>
+          <p class="section-text">
+            Project ideas, introductions, questions, or anything else that should land in my inbox directly.
+          </p>
+        </div>
+        <div class="contact-layout">
+          <form class="contact-form" id="contact-form">
+            <label class="field">
+              <span>Name</span>
+              <input id="contact-name" name="name" type="text" autocomplete="name" required>
+            </label>
+
+            <label class="field">
+              <span>What do you do?</span>
+              <input id="contact-role" name="role" type="text" autocomplete="organization-title" required>
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input id="contact-email" name="email" type="email" autocomplete="email" required>
+            </label>
+
+            <label class="field">
+              <span>Message</span>
+              <textarea id="contact-message" name="message" rows="6" required></textarea>
+            </label>
+
+            <div class="contact-actions">
+              <button class="button button-primary" type="submit">Send message</button>
+              <p class="form-status" id="contact-status">Tell me what is on your mind and I will get back to you.</p>
+            </div>
+          </form>
+
+          <aside class="contact-aside">
+            <p class="summary-label">Best for</p>
+            <p class="summary-note">If this is a hiring request, use the resume form above instead.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="scroll-section panel fade-in"
+      id="online"
+      data-route-target="online"
+      data-route-index="06"
+      data-route-name="Find me online"
+      data-route-copy="The public places where I share work and code."
+      data-progress="1"
+    >
+      <div class="section-shell section-shell-form">
+        <div class="section-copy">
+          <p class="mono">Find me online</p>
+          <h2>Browse the public trail.</h2>
+          <p class="section-text">
+            Follow along on the platforms where I share code, work, and whatever is happening publicly.
+          </p>
+        </div>
+        <div class="route-grid">
+          <a class="route-card" data-route-card data-route-target="online" href="https://github.com/joshlayani" target="_blank" rel="noopener">
+            <span class="route-kicker">GitHub</span>
+            <strong>github.com/joshlayani</strong>
+            <span>Code, repos, experiments, and the public side of the work.</span>
+          </a>
+          <a class="route-card" data-route-card data-route-target="online" href="https://linkedin.com/in/joshlayani" target="_blank" rel="noopener">
+            <span class="route-kicker">LinkedIn</span>
+            <strong>linkedin.com/in/joshlayani</strong>
+            <span>Professional background, work history, and the recruiting trail.</span>
+          </a>
+          <a class="route-card" data-route-card data-route-target="online" href="https://x.com/joshlayani_" target="_blank" rel="noopener">
+            <span class="route-kicker">X</span>
+            <strong>x.com/joshlayani_</strong>
+            <span>Short thoughts, links, and things happening in public right now.</span>
+          </a>
+          <a class="route-card" data-route-card data-route-target="online" href="https://instagram.com/josh.pdf" target="_blank" rel="noopener">
+            <span class="route-kicker">Instagram</span>
+            <strong>instagram.com/josh.pdf</strong>
+            <span>A lighter public trail, including the visual side of things.</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -244,6 +284,6 @@
   <noscript>
     <div class="noscript-banner">This homepage works best with JavaScript enabled so the scroll state and forms can run.</div>
   </noscript>
-  <script src="script.js?v=20260401b" defer></script>
+  <script src="script.js?v=20260401c" defer></script>
 </body>
 </html>
