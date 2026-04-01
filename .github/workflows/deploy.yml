@@ -31,25 +31,16 @@ jobs:
             set -euo pipefail
             export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 
+            rm -f /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx
+
             if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
               apt-get install -y nodejs npm
             fi
 
-            if ! command -v node >/dev/null 2>&1 && command -v nodejs >/dev/null 2>&1; then
-              ln -sf "$(command -v nodejs)" /usr/local/bin/node
-            fi
-
             command -v node >/dev/null 2>&1 || { echo "node not found on VPS"; exit 1; }
             command -v npm >/dev/null 2>&1 || { echo "npm not found on VPS"; exit 1; }
-
-            install -d -m 0755 /usr/local/bin
-            ln -sf "$(command -v node)" /usr/local/bin/node
-            ln -sf "$(command -v npm)" /usr/local/bin/npm
-            if command -v npx >/dev/null 2>&1; then
-              ln -sf "$(command -v npx)" /usr/local/bin/npx
-            fi
 
             cd /var/www/joshlayani.com
             git pull origin main
