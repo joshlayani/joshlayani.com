@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 
 const {
   clampDays,
+  getPoolConfigFromEnv,
   formatDailyDigestEmail,
   getDailyDigestRange,
   getDigestTimeZone,
@@ -10,7 +11,8 @@ const {
   getResumeNotificationEmail,
   normalizeContactPayload,
   normalizeEventPayload,
-  normalizeResumeRequestPayload
+  normalizeResumeRequestPayload,
+  sanitizeDatabaseUrl
 } = require("./server");
 
 test("normalizeEventPayload requires sessionId and eventType", function () {
@@ -135,6 +137,45 @@ test("getDigestTimeZone reads the configured environment variable", function () 
       delete process.env.ANALYTICS_TIMEZONE;
     } else {
       process.env.ANALYTICS_TIMEZONE = original;
+    }
+  }
+});
+
+test("sanitizeDatabaseUrl removes SSL query settings when DATABASE_SSL is enabled", function () {
+  const sanitized = sanitizeDatabaseUrl(
+    "postgres://user:pass@db.joshlayani.com:5432/app?sslmode=require&sslrootcert=/tmp/ca.pem&foo=bar",
+    true
+  );
+  const url = new URL(sanitized);
+
+  assert.equal(url.searchParams.get("sslmode"), null);
+  assert.equal(url.searchParams.get("sslrootcert"), null);
+  assert.equal(url.searchParams.get("foo"), "bar");
+});
+
+test("getPoolConfigFromEnv prefers explicit SSL config over DATABASE_URL sslmode", function () {
+  const originalDatabaseUrl = process.env.DATABASE_URL;
+  const originalDatabaseSsl = process.env.DATABASE_SSL;
+
+  process.env.DATABASE_URL = "postgres://user:pass@db.joshlayani.com:5432/app?sslmode=require";
+  process.env.DATABASE_SSL = "true";
+
+  try {
+    const config = getPoolConfigFromEnv();
+
+    assert.equal(config.connectionString.includes("sslmode=require"), false);
+    assert.deepEqual(config.ssl, { rejectUnauthorized: false });
+  } finally {
+    if (originalDatabaseUrl === undefined) {
+      delete process.env.DATABASE_URL;
+    } else {
+      process.env.DATABASE_URL = originalDatabaseUrl;
+    }
+
+    if (originalDatabaseSsl === undefined) {
+      delete process.env.DATABASE_SSL;
+    } else {
+      process.env.DATABASE_SSL = originalDatabaseSsl;
     }
   }
 });

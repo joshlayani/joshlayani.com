@@ -365,6 +365,26 @@ function getMailFromAddress(fallbackAddress) {
   return process.env.CONTACT_FROM_EMAIL || fallbackAddress;
 }
 
+function sanitizeDatabaseUrl(connectionString, useSsl) {
+  if (!useSsl) {
+    return connectionString;
+  }
+
+  const url = new URL(connectionString);
+  [
+    "ssl",
+    "sslmode",
+    "sslcert",
+    "sslkey",
+    "sslrootcert",
+    "uselibpqcompat"
+  ].forEach(function (key) {
+    url.searchParams.delete(key);
+  });
+
+  return url.toString();
+}
+
 async function maybeSendDailyDigest(options) {
   const pool = options.pool;
   const mailer = options.mailer;
@@ -859,17 +879,21 @@ function createApp(options) {
   return app;
 }
 
-function createPoolFromEnv() {
+function getPoolConfigFromEnv() {
   if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL is required.");
   }
 
   const useSsl = String(process.env.DATABASE_SSL || "").toLowerCase() === "true";
 
-  return new Pool({
-    connectionString: process.env.DATABASE_URL,
+  return {
+    connectionString: sanitizeDatabaseUrl(process.env.DATABASE_URL, useSsl),
     ssl: useSsl ? { rejectUnauthorized: false } : undefined
-  });
+  };
+}
+
+function createPoolFromEnv() {
+  return new Pool(getPoolConfigFromEnv());
 }
 
 function createMailerFromEnv() {
@@ -942,14 +966,17 @@ if (require.main === module) {
 module.exports = {
   clampDays,
   createApp,
+  createPoolFromEnv,
   ensureSchema,
   formatDailyDigestEmail,
   getDailyDigestRange,
   getDigestTimeZone,
   getMessageNotificationEmail,
+  getPoolConfigFromEnv,
   getResumeNotificationEmail,
   maybeSendDailyDigest,
   normalizeContactPayload,
   normalizeResumeRequestPayload,
-  normalizeEventPayload
+  normalizeEventPayload,
+  sanitizeDatabaseUrl
 };
