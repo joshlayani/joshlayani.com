@@ -32,6 +32,7 @@ jobs:
             export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
 
             if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
+              export DEBIAN_FRONTEND=noninteractive
               apt-get update
               apt-get install -y nodejs npm
             fi
@@ -77,6 +78,14 @@ jobs:
             systemctl enable joshlayani-api
             systemctl restart joshlayani-api
             sleep 2
-            systemctl --no-pager --full status joshlayani-api
-            curl --fail http://127.0.0.1:3001/api/health
+            if ! systemctl is-active --quiet joshlayani-api; then
+              systemctl --no-pager --full status joshlayani-api || true
+              journalctl -u joshlayani-api -n 100 --no-pager || true
+              exit 1
+            fi
+            if ! curl --fail http://127.0.0.1:3001/api/health; then
+              systemctl --no-pager --full status joshlayani-api || true
+              journalctl -u joshlayani-api -n 100 --no-pager || true
+              exit 1
+            fi
             nginx -t && systemctl reload nginx
