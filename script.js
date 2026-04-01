@@ -2,6 +2,7 @@
   const scrollSections = Array.from(document.querySelectorAll(".scroll-section[data-route-target]"));
   const routeCards = Array.from(document.querySelectorAll("[data-route-card]"));
   const randomProjectLinks = Array.from(document.querySelectorAll("[data-random-project]"));
+  const sidebarLinks = Array.from(document.querySelectorAll(".sidebar-nav a"));
   const contactForm = document.getElementById("contact-form");
   const resumeForm = document.getElementById("resume-form");
   const contactStatus = document.getElementById("contact-status");
@@ -122,6 +123,19 @@
 
     scrollSections.forEach(function (currentSection) {
       currentSection.classList.toggle("is-active", currentSection === section);
+    });
+
+    sidebarLinks.forEach(function (link) {
+      const href = link.getAttribute("href");
+      const targetId = href && href.startsWith("#") ? href.slice(1) : "";
+      const isActive = targetId === section.id;
+      link.classList.toggle("is-active", isActive);
+
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
     });
 
     if (!seenSections.has(state.id)) {

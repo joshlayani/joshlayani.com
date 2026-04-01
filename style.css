@@ -40,6 +40,12 @@ body {
   transition: background 0.45s ease;
 }
 
+@media (min-width: 961px) {
+  body {
+    padding-left: 15rem;
+  }
+}
+
 body[data-active-route="portfolio"] {
   --accent: #8ac6ff;
   --accent-rgb: 138, 198, 255;
@@ -137,23 +143,21 @@ a {
   50% { transform: translateX(-50%) translate(52px, -42px) scale(1.08); }
 }
 
-.topbar,
+.sidebar,
 .page {
   position: relative;
   z-index: 1;
 }
 
-.topbar {
+.sidebar {
   position: fixed;
-  top: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(calc(100% - 2rem), var(--max-width));
-  padding: 0.9rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.9rem;
+  top: 50%;
+  left: 1.25rem;
+  transform: translateY(-50%);
+  width: 12rem;
+  padding: 1.2rem 1rem;
+  display: grid;
+  gap: 1.1rem;
   border: 1px solid var(--border);
   border-radius: 1rem;
   background: rgba(7, 11, 22, 0.72);
@@ -161,7 +165,7 @@ a {
   z-index: 3;
 }
 
-.topbar::after {
+.sidebar::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -171,7 +175,7 @@ a {
 }
 
 .brand,
-.topnav a {
+.sidebar-nav a {
   text-decoration: none;
 }
 
@@ -180,20 +184,34 @@ a {
   letter-spacing: -0.02em;
 }
 
-.topnav {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.sidebar-nav {
+  display: grid;
+  gap: 0.45rem;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
-.topnav a:hover {
+.sidebar-nav a {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-nav a:hover {
   color: var(--fg);
+  transform: translateX(2px);
+}
+
+.sidebar-nav a.is-active {
+  color: var(--fg);
+  border-color: var(--border-strong);
+  background: rgba(var(--accent-rgb), 0.12);
 }
 
 @supports ((backdrop-filter: blur(18px)) or (-webkit-backdrop-filter: blur(18px))) {
-  .topbar,
+  .sidebar,
   .panel,
   .route-card,
   .contact-form,
@@ -217,7 +235,7 @@ a {
 .page {
   width: min(calc(100% - 2rem), var(--max-width));
   margin: 0 auto;
-  padding: 6.5rem 0 4rem;
+  padding: 3rem 0 4rem;
 }
 
 .scroll-page {
@@ -468,6 +486,10 @@ h2 {
 }
 
 @media (max-width: 960px) {
+  .sidebar {
+    display: none;
+  }
+
   .section-shell,
   .contact-layout,
   .route-grid {
@@ -484,27 +506,8 @@ h2 {
 }
 
 @media (max-width: 640px) {
-  .topbar,
   .page {
     width: min(calc(100% - 1rem), var(--max-width));
-  }
-
-  .topbar {
-    top: 0.5rem;
-    padding: 0.8rem 0.85rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.65rem;
-  }
-
-  .page {
-    padding-top: 8rem;
-  }
-
-  .topnav {
-    flex-wrap: wrap;
-    gap: 0.65rem 0.9rem;
-    font-size: 0.92rem;
   }
 
   h1 {
