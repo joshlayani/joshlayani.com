@@ -13,10 +13,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;1,14..32,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260331">
+  <link rel="stylesheet" href="style.css?v=20260401b">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
-<body data-active-route="overview">
+<body>
 
   <div class="gradient-bg" aria-hidden="true">
     <div class="g1"></div>
@@ -39,18 +39,18 @@
     <section class="hero panel fade-in" id="overview">
       <div class="hero-copy">
         <p class="mono">Internet front door</p>
-        <h1>Pick the path you need.</h1>
+        <h1>Pick the right route and keep moving.</h1>
         <p class="tagline">
-          Explore my work, open a live project, request a resume, send a message, or find me online.
+          Portfolio, live projects, resume requests, direct messages, and socials. Nothing extra.
         </p>
         <div class="hero-actions">
           <a class="button button-primary" href="#routes">Choose a route</a>
-          <a class="button button-secondary" href="#resume">Request a resume</a>
+          <a class="button button-secondary" href="#contact">Send a message</a>
         </div>
       </div>
 
       <aside class="hero-summary">
-        <p class="summary-label">Five routes</p>
+        <p class="summary-label">Quick routes</p>
         <ul class="audience-list" aria-label="Audience routes">
           <li>Explore my work</li>
           <li>Open a random project</li>
@@ -59,177 +59,9 @@
           <li>Find me online</li>
         </ul>
         <p class="summary-note">
-          This page is here to get you where you want to go fast.
+          This homepage is just a fast way in.
         </p>
       </aside>
-    </section>
-
-    <section class="story-shell" id="story" aria-labelledby="story-heading">
-      <div class="story-heading fade-in">
-        <p class="mono">Start here</p>
-        <h2 id="story-heading">Five useful ways to use this homepage.</h2>
-      </div>
-
-      <div class="story-layout">
-        <aside class="dispatch-console fade-in" aria-live="polite">
-          <p class="console-label">Current route</p>
-          <h3 id="active-step-title">Start with the front door.</h3>
-          <p id="active-step-description">
-            Everything here is designed to help you choose the shortest path.
-          </p>
-
-          <div class="progress-track" aria-hidden="true">
-            <span id="story-progress"></span>
-          </div>
-
-          <dl class="console-meta">
-            <div>
-              <dt>Type</dt>
-              <dd id="active-step-focus">Overview</dd>
-            </div>
-            <div>
-              <dt>Destination</dt>
-              <dd id="active-step-route">joshlayani.com</dd>
-            </div>
-          </dl>
-
-          <div class="console-routes">
-            <a class="mini-route" data-route-card data-route-target="portfolio" href="https://portfolio.joshlayani.com" target="_blank" rel="noopener">Portfolio</a>
-            <a class="mini-route" data-route-card data-route-target="random-project" data-random-project href="https://olivia.joshlayani.com" target="_blank" rel="noopener">Random project</a>
-            <a class="mini-route" data-route-card data-route-target="resume" href="#resume">Resume</a>
-            <a class="mini-route" data-route-card data-route-target="message" href="#contact">Message</a>
-            <a class="mini-route" data-route-card data-route-target="online" href="#online">Online</a>
-          </div>
-        </aside>
-
-        <div class="story-steps">
-          <article
-            class="story-step fade-in is-active"
-            id="step-overview"
-            data-step="overview"
-            data-focus="Overview"
-            data-route="joshlayani.com"
-            data-route-target="overview"
-            data-progress="0.16"
-          >
-            <span class="step-index">01</span>
-            <h3>Start with the front door.</h3>
-            <p>
-              If you just landed here, this page helps you find the fastest next step.
-            </p>
-            <ul class="step-points">
-              <li>See the full portfolio.</li>
-              <li>Jump into a live project.</li>
-              <li>Reach out if you are hiring or want to connect.</li>
-            </ul>
-          </article>
-
-          <article
-            class="story-step fade-in"
-            id="step-portfolio"
-            data-step="portfolio"
-            data-focus="Portfolio"
-            data-route="portfolio.joshlayani.com"
-            data-route-target="portfolio"
-            data-progress="0.32"
-          >
-            <span class="step-index">02</span>
-            <h3>Explore my work.</h3>
-            <p>
-              The portfolio is the best place to see projects, white papers, and the broader body of work.
-            </p>
-            <ul class="step-points">
-              <li>Start broad.</li>
-              <li>See the context behind the work.</li>
-              <li>Use it when you want the full picture.</li>
-            </ul>
-          </article>
-
-          <article
-            class="story-step fade-in"
-            id="step-random-project"
-            data-step="random-project"
-            data-focus="Project"
-            data-route="One live project, picked at random"
-            data-route-target="random-project"
-            data-progress="0.48"
-          >
-            <span class="step-index">03</span>
-            <h3>Open a random project.</h3>
-            <p>
-              If you want to see something live right away, I will send you straight into one of the current builds.
-            </p>
-            <ul class="step-points">
-              <li>No extra setup.</li>
-              <li>No extra explanation.</li>
-              <li>Just open something real.</li>
-            </ul>
-          </article>
-
-          <article
-            class="story-step fade-in"
-            id="step-resume"
-            data-step="resume"
-            data-focus="Resume"
-            data-route="Resume request form"
-            data-route-target="resume"
-            data-progress="0.64"
-          >
-            <span class="step-index">04</span>
-            <h3>Request a resume.</h3>
-            <p>
-              Recruiters can send the role details here so I can reply with the most relevant resume.
-            </p>
-            <ul class="step-points">
-              <li>Share the role.</li>
-              <li>Include the compensation range.</li>
-              <li>Make the request specific.</li>
-            </ul>
-          </article>
-
-          <article
-            class="story-step fade-in"
-            id="step-message"
-            data-step="message"
-            data-focus="Message"
-            data-route="Direct message form"
-            data-route-target="message"
-            data-progress="0.8"
-          >
-            <span class="step-index">05</span>
-            <h3>Send me a message.</h3>
-            <p>
-              Use the message form for intros, project notes, questions, or anything else that should land in my inbox.
-            </p>
-            <ul class="step-points">
-              <li>Short note or long note.</li>
-              <li>Work inquiry or general hello.</li>
-              <li>Simple and direct.</li>
-            </ul>
-          </article>
-
-          <article
-            class="story-step fade-in"
-            id="step-online"
-            data-step="online"
-            data-focus="Online"
-            data-route="GitHub and public links"
-            data-route-target="online"
-            data-progress="1"
-          >
-            <span class="step-index">06</span>
-            <h3>Find me online.</h3>
-            <p>
-              If you would rather browse first, the online section points to the public places where I share work.
-            </p>
-            <ul class="step-points">
-              <li>Code and repos.</li>
-              <li>Public project trail.</li>
-              <li>Easy ways to keep in touch.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
     </section>
 
     <section class="routes panel fade-in" id="routes" aria-labelledby="routes-heading">
@@ -237,7 +69,7 @@
         <p class="mono">Choose a route</p>
         <h2 id="routes-heading">Go straight to what you came for.</h2>
         <p class="routes-note">
-          Five paths, each built for a different reason to be here.
+          Five options. Pick one and go.
         </p>
       </div>
 
@@ -275,7 +107,7 @@
         <p class="mono">Resume request</p>
         <h2 id="resume-heading">Request a resume.</h2>
         <p class="routes-note">
-          If you are recruiting, send the role details and I will know what to send back.
+          If you are recruiting, send the role details and the best reply address.
         </p>
       </div>
 
@@ -315,7 +147,7 @@
             <li>Compensation range</li>
             <li>Real job description</li>
           </ul>
-          <p class="summary-note">This keeps resume requests specific instead of turning into vague cold outreach.</p>
+          <p class="summary-note">The more specific the role is, the more useful the reply can be.</p>
         </aside>
       </div>
     </section>
@@ -325,7 +157,7 @@
         <p class="mono">Send a message</p>
         <h2 id="contact-heading">Send me a message.</h2>
         <p class="routes-note">
-          For project ideas, intros, questions, or anything else that should reach me directly.
+          Use this for project ideas, intros, questions, or anything else that should reach me directly.
         </p>
       </div>
 
@@ -365,7 +197,7 @@
             <li>Questions</li>
             <li>General notes</li>
           </ul>
-          <p class="summary-note">If you want to hire me, use the resume request form above. Everything else can go here.</p>
+          <p class="summary-note">If this is a hiring request, use the resume form above instead.</p>
         </aside>
       </div>
     </section>
@@ -404,7 +236,7 @@
     </section>
 
     <footer class="site-footer fade-in">
-      <p>Portfolio, live work, resume requests, direct messages, and public links in one place.</p>
+      <p>joshlayani.com</p>
       <p>&copy; 2026 Josh Layani</p>
     </footer>
   </main>
@@ -412,6 +244,6 @@
   <noscript>
     <div class="noscript-banner">This homepage works best with JavaScript enabled so the scroll state and forms can run.</div>
   </noscript>
-  <script src="script.js?v=20260331" defer></script>
+  <script src="script.js?v=20260401b" defer></script>
 </body>
 </html>

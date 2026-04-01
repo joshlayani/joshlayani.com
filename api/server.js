@@ -148,6 +148,14 @@ function getDigestTimeZone() {
   return process.env.ANALYTICS_TIMEZONE || Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 }
 
+function getMessageNotificationEmail() {
+  return process.env.CONTACT_TO_EMAIL || null;
+}
+
+function getResumeNotificationEmail() {
+  return process.env.RESUME_REQUEST_TO_EMAIL || getMessageNotificationEmail();
+}
+
 function getDatePartsInTimeZone(value, timeZone) {
   const formatter = new Intl.DateTimeFormat("en-CA", {
     timeZone,
@@ -351,6 +359,10 @@ function formatDailyDigestEmail(summary) {
       return referrer.referrer + ": " + referrer.visits + " page views";
     }, "No page view referrers recorded.")
   ].join("\n");
+}
+
+function getMailFromAddress(fallbackAddress) {
+  return process.env.CONTACT_FROM_EMAIL || fallbackAddress;
 }
 
 async function maybeSendDailyDigest(options) {
@@ -562,7 +574,7 @@ async function ensureSchema(pool) {
 }
 
 function createApp(options) {
-  const { pool, mailer, notificationEmail } = options;
+  const { pool, mailer, contactNotificationEmail, resumeNotificationEmail } = options;
   const app = express();
 
   app.set("trust proxy", true);
@@ -717,11 +729,11 @@ function createApp(options) {
 
       let emailDelivered = false;
 
-      if (mailer && notificationEmail) {
+      if (mailer && contactNotificationEmail) {
         try {
           await mailer.sendMail({
-            from: process.env.CONTACT_FROM_EMAIL || notificationEmail,
-            to: notificationEmail,
+            from: getMailFromAddress(contactNotificationEmail),
+            to: contactNotificationEmail,
             replyTo: payload.email,
             subject: "New joshlayani.com contact form submission",
             text:
@@ -792,11 +804,11 @@ function createApp(options) {
 
       let emailDelivered = false;
 
-      if (mailer && notificationEmail) {
+      if (mailer && resumeNotificationEmail) {
         try {
           await mailer.sendMail({
-            from: process.env.CONTACT_FROM_EMAIL || notificationEmail,
-            to: notificationEmail,
+            from: getMailFromAddress(resumeNotificationEmail),
+            to: resumeNotificationEmail,
             replyTo: payload.contactEmail,
             subject: "New joshlayani.com resume request",
             text:
@@ -881,13 +893,15 @@ function createMailerFromEnv() {
 async function startServer() {
   const pool = createPoolFromEnv();
   const mailer = createMailerFromEnv();
-  const notificationEmail = process.env.CONTACT_TO_EMAIL || null;
-  const digestEmail = process.env.ANALYTICS_DIGEST_TO_EMAIL || notificationEmail;
+  const contactNotificationEmail = getMessageNotificationEmail();
+  const resumeNotificationEmail = getResumeNotificationEmail();
+  const digestEmail = process.env.ANALYTICS_DIGEST_TO_EMAIL || contactNotificationEmail;
   const digestTimeZone = getDigestTimeZone();
   const app = createApp({
     pool,
     mailer,
-    notificationEmail
+    contactNotificationEmail,
+    resumeNotificationEmail
   });
   const port = Number.parseInt(process.env.PORT || "3001", 10);
 
@@ -932,6 +946,8 @@ module.exports = {
   formatDailyDigestEmail,
   getDailyDigestRange,
   getDigestTimeZone,
+  getMessageNotificationEmail,
+  getResumeNotificationEmail,
   maybeSendDailyDigest,
   normalizeContactPayload,
   normalizeResumeRequestPayload,

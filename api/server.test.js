@@ -6,6 +6,8 @@ const {
   formatDailyDigestEmail,
   getDailyDigestRange,
   getDigestTimeZone,
+  getMessageNotificationEmail,
+  getResumeNotificationEmail,
   normalizeContactPayload,
   normalizeEventPayload,
   normalizeResumeRequestPayload
@@ -133,6 +135,55 @@ test("getDigestTimeZone reads the configured environment variable", function () 
       delete process.env.ANALYTICS_TIMEZONE;
     } else {
       process.env.ANALYTICS_TIMEZONE = original;
+    }
+  }
+});
+
+test("notification email helpers use contact and resume-specific recipients", function () {
+  const originalContact = process.env.CONTACT_TO_EMAIL;
+  const originalResume = process.env.RESUME_REQUEST_TO_EMAIL;
+
+  process.env.CONTACT_TO_EMAIL = "hello@joshlayani.com";
+  process.env.RESUME_REQUEST_TO_EMAIL = "requests@joshlayani.com";
+
+  try {
+    assert.equal(getMessageNotificationEmail(), "hello@joshlayani.com");
+    assert.equal(getResumeNotificationEmail(), "requests@joshlayani.com");
+  } finally {
+    if (originalContact === undefined) {
+      delete process.env.CONTACT_TO_EMAIL;
+    } else {
+      process.env.CONTACT_TO_EMAIL = originalContact;
+    }
+
+    if (originalResume === undefined) {
+      delete process.env.RESUME_REQUEST_TO_EMAIL;
+    } else {
+      process.env.RESUME_REQUEST_TO_EMAIL = originalResume;
+    }
+  }
+});
+
+test("resume notifications fall back to the contact inbox", function () {
+  const originalContact = process.env.CONTACT_TO_EMAIL;
+  const originalResume = process.env.RESUME_REQUEST_TO_EMAIL;
+
+  process.env.CONTACT_TO_EMAIL = "hello@joshlayani.com";
+  delete process.env.RESUME_REQUEST_TO_EMAIL;
+
+  try {
+    assert.equal(getResumeNotificationEmail(), "hello@joshlayani.com");
+  } finally {
+    if (originalContact === undefined) {
+      delete process.env.CONTACT_TO_EMAIL;
+    } else {
+      process.env.CONTACT_TO_EMAIL = originalContact;
+    }
+
+    if (originalResume === undefined) {
+      delete process.env.RESUME_REQUEST_TO_EMAIL;
+    } else {
+      process.env.RESUME_REQUEST_TO_EMAIL = originalResume;
     }
   }
 });

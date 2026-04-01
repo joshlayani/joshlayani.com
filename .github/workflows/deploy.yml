@@ -37,6 +37,7 @@ jobs:
             DATABASE_SSL=${{ secrets.DATABASE_SSL }}
             PORT=3001
             CONTACT_TO_EMAIL=${{ secrets.CONTACT_TO_EMAIL }}
+            RESUME_REQUEST_TO_EMAIL=${{ secrets.RESUME_REQUEST_TO_EMAIL }}
             CONTACT_FROM_EMAIL=${{ secrets.CONTACT_FROM_EMAIL }}
             ANALYTICS_DIGEST_TO_EMAIL=${{ secrets.ANALYTICS_DIGEST_TO_EMAIL }}
             ANALYTICS_TIMEZONE=America/Toronto
